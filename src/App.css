@@ -1,0 +1,41 @@
+:root {
+    --primary-color: #173e5e;
+    --secondary-color: #29104A;
+    --font-size-big: 21px;
+    --element-spacing: 16px;
+    --font-color: white;
+    --border-radius: 8px;
+    --app-bar-height: 50px;
+}
+
+.content-wrapper {
+    padding-top: var(--app-bar-height);
+}
+
+.list-item-container {
+    font-size: var(--font-size-big);
+    background-color: var(--primary-color);
+    margin: var(--element-spacing);
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    color: var(--font-color);
+    cursor: pointer;
+    label {
+        margin: 0 20px;
+    }
+    .event-item {
+        padding: var(--element-spacing);
+    }
+}
+
+.add-event-btn {
+    background-color: wheat;
+}
+
+.app-bar-container {
+    max-height: var(--app-bar-height);
+    min-height: var(--app-bar-height);
+    background-color: var(--secondary-color);
+    position: fixed;
+    width: 100%;
+}
