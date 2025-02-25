@@ -7,6 +7,7 @@ export const exampleCategories: Category[] = [
 
 export const exampleEvents: Event[] = [
     {
+        id: 1,
         name: 'Dawid Podsiadlo na Narodowym',
         category: exampleCategories[0],
         location: 'Warszawa',
@@ -18,6 +19,7 @@ export const exampleEvents: Event[] = [
         ticketPrice: 123.99,
     },
     {
+        id: 2,
         name: 'Taco Hemingway na Narodowym',
         category: exampleCategories[0],
         location: 'Warszawa',

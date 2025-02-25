@@ -1,8 +1,10 @@
-import {List, ListItem} from "@mui/material";
+import {Button, List, ListItem} from "@mui/material";
 import {connect} from "react-redux";
-import {StoreState} from "../model/storing/StoreState";
-import {StoreActionType} from "../store/reducer";
-import {Event} from "../model/Event";
+import {StoreState} from "../../model/storing/StoreState";
+import {StoreActionType} from "../../store/reducer";
+import {Event} from "../../model/Event";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import {LocalCartService} from "../../services/LocalCartService";
 
 interface ListViewProps {
     events: Event[]
@@ -12,6 +14,8 @@ interface ListViewActions {
 
 }
 
+const localCartService = new LocalCartService();
+
 const ListViewComponent = (props: ListViewProps) => {
     const renderEventItem = (event: Event, index: number) => {
         return <ListItem key={index} className={'list-item-container'}>
@@ -19,6 +23,9 @@ const ListViewComponent = (props: ListViewProps) => {
                 <label>{event.name}</label>
                 <label>Tickets available: {event.numberOfTicketsAvailable}</label>
             </div>
+            <Button variant={'text'} onClick={() => localCartService.addTicketToCart(event)}>
+                <AddShoppingCartIcon/>
+            </Button>
         </ListItem>
     }
 

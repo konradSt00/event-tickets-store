@@ -1,12 +1,14 @@
-import {Actions} from "./actions";
+import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
 import {exampleCategories, exampleEvents} from "./MockData";
 
+export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW'
 
 const initialState: StoreState = {
     events: exampleEvents,
-    categories: exampleCategories
+    categories: exampleCategories,
+    currentView: 'EVENTS_LIST'
 }
 
 export interface StoreActionType extends Action<string> {
@@ -16,8 +18,11 @@ export interface StoreActionType extends Action<string> {
 
 export const reducer = (state = initialState, action: StoreActionType): StoreState => {
     switch (action.type) {
-        // case Actions.ADD_NEW_EVENT:
-        //     return pushEvent(state, action.payload)
+        case Actions.SWITCH_VIEW:
+            return {
+                ...state,
+                currentView: action.payload
+            }
         default:
             return state
     }
