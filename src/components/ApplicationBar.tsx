@@ -1,11 +1,11 @@
 import {DialogButton} from "./DialogButton";
 import {AddEventDialog} from "./form/event/AddEventDialog";
 import {AddCategoryDialog} from "./form/category/AddCategoryDialog";
-import {LoginDialog} from "./form/login/LoginDialog";
-import {RegisterDialog} from "./form/register/RegisterDialog";
 import {CartPopover} from "./cart/CartPopover";
 import {AuthService} from "../services/AuthService";
 import {Button} from "@mui/material";
+import {LoginButton} from "./form/login/LoginButton";
+import {RegisterButton} from "./form/register/RegisterButton";
 
 
 export const ApplicationBar = () => {
@@ -24,12 +24,18 @@ export const ApplicationBar = () => {
         </>
     }
 
+    const renderGuestButtons = () => {
+        return AuthService.isGuest()
+            ? <>
+                <LoginButton/>
+                <RegisterButton/>
+            </>
+            : null;
+    }
+
     return <div className={'app-bar-container'}>
         {renderAdminToolsIfAuthorized()}
-        {AuthService.isGuest() &&
-            <DialogButton buttonLabel={'Login'} dialog={LoginDialog} dialogProps={{dialogTitle: 'Login'}}/>}
-        {AuthService.isGuest() &&
-            <DialogButton buttonLabel={'Register'} dialog={RegisterDialog} dialogProps={{dialogTitle: 'Register'}}/>}
+        {renderGuestButtons()}
         {!AuthService.isGuest() &&
             <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>}
         <CartPopover/>

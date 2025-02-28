@@ -28,7 +28,16 @@ export const DialogButton = <PropsType extends DialogProps, >(props: DialogButto
     }
 
     return <>
-        <Button disabled={disabled} color={'secondary'} onClick={handleDialogOpen} size={'medium'} variant={'contained'} {...props}>{buttonLabel}</Button>
+        <Button
+            disabled={disabled}
+            color={'secondary'}
+            onClick={handleDialogOpen}
+            size={'medium'}
+            variant={'contained'}
+            {...props}
+        >
+            {buttonLabel}
+        </Button>
         {React.createElement(dialog, {...generalDialogProps, ...dialogProps})}
     </>
 }

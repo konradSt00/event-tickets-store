@@ -4,10 +4,14 @@ import {DialogProps} from "../../../model/form/dialogs/DialogProps";
 import {LoginFields} from "./LoginFields";
 import {ActionButtons} from "../../../model/form/dialogs/ActionButtons";
 
-export const LoginDialog = (props: DialogProps) => {
+interface LoginDialogProps extends DialogProps {
+    onSuccessLogin?: () => void
+}
+
+export const LoginDialog = (props: LoginDialogProps) => {
     const getActionButtons = (): ActionButtons => {
         return {
-            primary: {label: 'LOGIN', action: (data) => {return {} as any}},
+            primary: {label: 'LOGIN', action: (data) => {props.onSuccessLogin && props.onSuccessLogin(); return {} as any}},
             secondary: {action: (data) => {return {} as any}}
         }
     }

@@ -1,4 +1,3 @@
-import {StoreActionType, View} from "../store/reducer";
 import {Actions} from "./actions";
 import {AuthService} from "../services/AuthService";
 import store from "../store/store";

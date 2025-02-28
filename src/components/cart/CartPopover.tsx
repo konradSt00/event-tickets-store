@@ -4,12 +4,14 @@ import {CartItem} from "../../model/cart/CartItem";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {LocalCartService} from "../../services/LocalCartService";
 import {openFinalizationView} from "../../actions/openFinalizationView";
+import {LoginAlert} from "../form/login/LoginAlert";
 
 const localCartService = new LocalCartService();
 
 export const CartPopover = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [items, setItems] = useState<CartItem[]>(localCartService.getAllItems())
+    const [showLoginAlert, setShowLoginAlert] = useState<boolean>(false);
 
     useEffect(() => {
         if(!!anchorEl) {
@@ -24,7 +26,11 @@ export const CartPopover = () => {
     }
 
     const renderNoItemsInfo = () => {
-        return <Alert severity="info">There is no events in cart.</Alert>;
+        return <Alert severity="info">There is no event in cart.</Alert>;
+    }
+
+    const finalizeOrder = () => {
+        setShowLoginAlert(true)
     }
 
     const id = !!anchorEl ? 'simple-popover' : undefined;
@@ -49,7 +55,10 @@ export const CartPopover = () => {
                 }}
             >
                 {items?.length > 0 ? renderItems() : renderNoItemsInfo()}
-                <Button onClick={openFinalizationView} variant={'contained'}>BUY TICKETS</Button>
+                {items?.length > 0 && <>
+                    <Button onClick={finalizeOrder} variant={'contained'}>BUY TICKETS</Button>
+                    <LoginAlert isDialogOpened={showLoginAlert} setDialogOpened={setShowLoginAlert} onClose={openFinalizationView}/>
+                </>}
             </Popover>
         </>
     );

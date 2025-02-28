@@ -19,6 +19,8 @@ export const  FormDialog = <FormValuesType extends FieldValues, >(props: General
 
     const onSubmit = (data: FormValuesType) => {
         // store.dispatch(props.dispatchMethod(data))
+        const primaryAction = props.actionButtons.primary.action;
+        primaryAction && primaryAction(data)
         handleDialogClose();
     }
 

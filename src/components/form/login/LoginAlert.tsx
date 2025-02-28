@@ -1,30 +1,27 @@
-import {Button, Dialog, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import {Button, Dialog, DialogContent, DialogTitle} from "@mui/material";
+import {LoginButton} from "./LoginButton";
 
-export const LoginAlert = () => {
-    const [open, setOpen] = useState(false);
+interface LoginAlertProps {
+    setDialogOpened: (open: boolean) => void;
+    isDialogOpened: boolean;
+    onClose: () => void;
+}
 
-    const otworzDialog = () => {
-        setOpen(true);
-    };
+export const LoginAlert = (props: LoginAlertProps) => {
+    const {isDialogOpened, setDialogOpened, onClose} = {...props};
 
-    const zamknijDialog = () => {
-        setOpen(false);
-    };
-
-    useEffect(() => {
-        // Przykład: otwórz dialog po 2 sekundach od załadowania komponentu
-        const timer = setTimeout(() => {
-            otworzDialog();
-        }, 2000);
-
-        return () => clearTimeout(timer); // Czyszczenie timera
-    }, []);
+    const handleDialogClose = () => {
+        setDialogOpened(false);
+        onClose();
+    }
 
     return (
         <div>
-            <Dialog open={open} onClose={zamknijDialog}>
-                <DialogTitle>Powiadomienie</DialogTitle>
-                <DialogContent>To jest powiadomienie otwarte programowo.</DialogContent>
+            <Dialog open={isDialogOpened} onClose={handleDialogClose}>
+                <DialogContent>
+                    <LoginButton onSuccessLogin={handleDialogClose} variant={'text'}/>
+                    or continue as
+                    <Button variant={'text'} onClick={handleDialogClose}>guest</Button></DialogContent>
             </Dialog>
         </div>
     );
