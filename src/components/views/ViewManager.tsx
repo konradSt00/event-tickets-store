@@ -1,9 +1,9 @@
 import {StoreState} from "../../model/storing/StoreState";
 import {View} from "../../store/reducer";
 import {connect} from "react-redux";
-import ListView from "./ListView";
 import {FinalizationView} from "./FinalizationView";
-import {ProfileView} from "./ProfileView";
+import {ProfileView} from "./Profile/ProfileView";
+import {ListView} from "./EventsList/ListView";
 
 interface ViewManagerProps {
     currentView: View

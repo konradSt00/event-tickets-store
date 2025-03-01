@@ -1,14 +1,9 @@
-
-import {DataGrid, GridColDef, GridRowSelectionModel} from "@mui/x-data-grid";
-import {exampleOrder} from "../../store/MockData";
-import {Order} from "../../model/order/Order";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import {Order} from "../../../model/order/Order";
 import dayjs from "dayjs";
-import {DATE_FORMAT} from "../../constants";
+import {DATE_FORMAT} from "../../../constants";
+import {exampleOrder} from "../../../store/MockData";
 
-
-interface ProfileViewProps {
-
-}
 
 interface DataGridRowType {
     id: number,
@@ -21,7 +16,8 @@ interface DataGridRowType {
 }
 
 let counter = 0;
-export const ProfileView = (props: ProfileViewProps) => {
+
+export const OrdersHistory = () => {
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [
         {field: 'orderId', headerName: 'Order id', flex: 1},
@@ -48,19 +44,15 @@ export const ProfileView = (props: ProfileViewProps) => {
     }
 
     const getRows = (): DataGridRowType[] => {
+        counter = 0;
         return exampleOrder.flatMap(mapOrderToRows);
     }
 
-    return <div className={'profile-view-container'}>
-        <div className={'user-data-container'}>
-            <h3>Your data</h3>
-        </div>
-        <div className={'orders-history-container'}>
-            <h3>Your orders</h3>
-            <DataGrid
-                columns={getColumns()}
-                rows={getRows()}
-            />
-        </div>
+    return <div className={'orders-history-container'}>
+        <h3>Your orders</h3>
+        <DataGrid
+            columns={getColumns()}
+            rows={getRows()}
+        />
     </div>
 }

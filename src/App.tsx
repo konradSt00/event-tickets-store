@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import ListView from "./components/views/ListView";
 import {Provider} from "react-redux";
 import store from "./store/store";
 import {ApplicationBar} from "./components/ApplicationBar";

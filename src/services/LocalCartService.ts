@@ -1,7 +1,7 @@
 import {CartItem} from "../model/cart/CartItem";
 import {Event} from "../model/Event"
 
-const CART_STORAGE_KEY = 'CART_STORAGE';
+export const CART_STORAGE_KEY = 'CART_STORAGE';
 
 export class LocalCartService {
 

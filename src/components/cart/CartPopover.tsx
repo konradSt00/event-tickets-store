@@ -42,9 +42,9 @@ export const CartPopover = () => {
         localCartService.clearCart();
     }
 
-    useEffect(() => {
-        setItems(localCartService.getAllItems())
-    }, [localCartService.getAllItems()]);
+    // useEffect(() => { TODO
+    //     setItems(localCartService.getAllItems())
+    // }, [localCartService.getAllItems()]);
 
     const getNumberOfItems = () => {
         return items.reduce((sum, curr) => {
