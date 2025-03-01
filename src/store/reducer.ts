@@ -3,7 +3,7 @@ import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
 import {exampleCategories, exampleEvents} from "./MockData";
 
-export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW'
+export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
 
 const initialState: StoreState = {
     events: exampleEvents,

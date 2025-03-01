@@ -6,7 +6,8 @@ import {AuthService} from "../services/AuthService";
 import {Button} from "@mui/material";
 import {LoginButton} from "./form/login/LoginButton";
 import {RegisterButton} from "./form/register/RegisterButton";
-
+import PersonIcon from '@mui/icons-material/Person';
+import {redirectToProfile} from "../actions/redirectToProfile";
 
 export const ApplicationBar = () => {
 
@@ -36,8 +37,11 @@ export const ApplicationBar = () => {
     return <div className={'app-bar-container'}>
         {renderAdminToolsIfAuthorized()}
         {renderGuestButtons()}
-        {!AuthService.isGuest() &&
-            <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>}
+        {!AuthService.isGuest() && <>
+                <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>
+                <Button onClick={redirectToProfile}><PersonIcon/></Button>
+            </>
+        }
         <CartPopover/>
     </div>
 }

@@ -3,6 +3,7 @@ import {View} from "../../store/reducer";
 import {connect} from "react-redux";
 import ListView from "./ListView";
 import {FinalizationView} from "./FinalizationView";
+import {ProfileView} from "./ProfileView";
 
 interface ViewManagerProps {
     currentView: View
@@ -10,6 +11,8 @@ interface ViewManagerProps {
 
 const ViewManagerComponent = (props: ViewManagerProps) => {
     switch(props.currentView) {
+        case "PROFILE_VIEW":
+            return <ProfileView/>;
         case "FINALIZATION_VIEW":
             return <FinalizationView/>;
         case "EVENTS_LIST":

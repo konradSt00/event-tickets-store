@@ -17,7 +17,7 @@ export const LoginAlert = (props: LoginAlertProps) => {
 
     return (
         <div>
-            <Dialog open={isDialogOpened} onClose={handleDialogClose}>
+            <Dialog open={isDialogOpened}>
                 <DialogContent>
                     <LoginButton onSuccessLogin={handleDialogClose} variant={'text'}/>
                     or continue as

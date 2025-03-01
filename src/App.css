@@ -39,3 +39,21 @@
     position: fixed;
     width: 100%;
 }
+
+.finalization-view-container {
+    width: 40%;
+    min-width: 500px;
+    margin: calc(var(--element-spacing) * 3) auto auto;
+}
+
+.order-summary-container {
+    border: 1px solid black;
+    margin-bottom: calc(var(--element-spacing) * 3);
+    padding: 0 var(--element-spacing) var(--element-spacing);
+}
+
+.orders-history-container {
+    width: 60%;
+    min-width: 700px;
+    margin: auto;
+}

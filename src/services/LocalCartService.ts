@@ -13,6 +13,10 @@ export class LocalCartService {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
     }
 
+    public clearCart() {
+        localStorage.removeItem(CART_STORAGE_KEY);
+    }
+
     public getAllItems(): CartItem[] {
         const localCart = localStorage.getItem(CART_STORAGE_KEY);
         return localCart ? JSON.parse(localCart) : [];
