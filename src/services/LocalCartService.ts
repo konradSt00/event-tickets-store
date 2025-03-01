@@ -1,5 +1,8 @@
 import {CartItem} from "../model/cart/CartItem";
 import {Event} from "../model/Event"
+import store from "../store/store";
+import {clearCart} from "../actions/clearCart";
+import {updateCart} from "../actions/updateCart";
 
 export const CART_STORAGE_KEY = 'CART_STORAGE';
 
@@ -10,16 +13,15 @@ export class LocalCartService {
         const newCart = allItems.filter(item => item.id !== event.id)
         const newItem = this.buildCartItem(event, quantity, allItems);
         !!newItem && newCart.push(newItem);
-        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
+        updateCart(newCart);
     }
 
     public clearCart() {
-        localStorage.removeItem(CART_STORAGE_KEY);
+        clearCart()
     }
 
     public getAllItems(): CartItem[] {
-        const localCart = localStorage.getItem(CART_STORAGE_KEY);
-        return localCart ? JSON.parse(localCart) : [];
+        return store.getState().cartItems;
     }
 
     private buildCartItem(event: Event, quantity: number, allItems: CartItem[]) {

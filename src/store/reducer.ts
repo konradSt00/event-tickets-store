@@ -8,7 +8,8 @@ export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
 const initialState: StoreState = {
     events: exampleEvents,
     categories: exampleCategories,
-    currentView: 'EVENTS_LIST'
+    currentView: 'EVENTS_LIST',
+    cartItems: []
 }
 
 export interface StoreActionType extends Action<string> {
@@ -22,6 +23,11 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
             return {
                 ...state,
                 currentView: action.payload
+            };
+        case Actions.UPDATE_CART:
+            return {
+                ...state,
+                cartItems: action.payload
             }
         default:
             return state

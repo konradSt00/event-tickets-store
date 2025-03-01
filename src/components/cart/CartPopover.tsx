@@ -1,23 +1,18 @@
 import {Alert, Badge, Button, Popover, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import {CartItem} from "../../model/cart/CartItem";
+import {useState} from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {LocalCartService} from "../../services/LocalCartService";
 import {redirectToFinalizationView} from "../../actions/redirectToFinalizationView";
 import {LoginAlert} from "../form/login/LoginAlert";
+import {useSelector} from "react-redux";
+import {StoreState} from "../../model/storing/StoreState";
 
 const localCartService = new LocalCartService();
 
 export const CartPopover = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-    const [items, setItems] = useState<CartItem[]>(localCartService.getAllItems())
     const [showLoginAlert, setShowLoginAlert] = useState<boolean>(false);
-
-    useEffect(() => {
-        if(!!anchorEl) {
-            setItems(localCartService.getAllItems);
-        }
-    }, [anchorEl])
+    const items = useSelector((state: StoreState) => state.cartItems);
 
     const renderItems = () => {
         return items.map(item => {
@@ -41,10 +36,6 @@ export const CartPopover = () => {
         closeCart();
         localCartService.clearCart();
     }
-
-    // useEffect(() => { TODO
-    //     setItems(localCartService.getAllItems())
-    // }, [localCartService.getAllItems()]);
 
     const getNumberOfItems = () => {
         return items.reduce((sum, curr) => {
