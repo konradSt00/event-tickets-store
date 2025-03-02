@@ -1,5 +1,6 @@
-import {Button, Dialog, DialogContent, DialogTitle} from "@mui/material";
+import {Button, Dialog, DialogContent} from "@mui/material";
 import {LoginButton} from "./LoginButton";
+import {RegisterButton} from "../register/RegisterButton";
 
 interface LoginAlertProps {
     setDialogOpened: (open: boolean) => void;
@@ -19,7 +20,8 @@ export const LoginAlert = (props: LoginAlertProps) => {
         <div>
             <Dialog open={isDialogOpened}>
                 <DialogContent>
-                    <LoginButton onSuccessLogin={handleDialogClose} variant={'text'}/>
+                    <LoginButton onSuccessLogin={handleDialogClose} variant={'text'}/>/
+                    <RegisterButton variant={'text'}/>
                     or continue as
                     <Button variant={'text'} onClick={handleDialogClose}>guest</Button></DialogContent>
             </Dialog>

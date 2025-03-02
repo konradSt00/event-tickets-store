@@ -1,7 +1,7 @@
 import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
-import {exampleCategories, exampleEvents} from "./MockData";
+import {exampleCategories, exampleEvents, exampleOrder, exampleProfileData} from "./MockData";
 
 export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
 
@@ -9,7 +9,11 @@ const initialState: StoreState = {
     events: exampleEvents,
     categories: exampleCategories,
     currentView: 'EVENTS_LIST',
-    cartItems: []
+    cartItems: [],
+    profileState: {
+        userData: exampleProfileData,
+        historicalOrders: exampleOrder
+    }
 }
 
 export interface StoreActionType extends Action<string> {

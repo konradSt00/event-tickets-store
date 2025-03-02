@@ -2,6 +2,7 @@ import {Event} from "../model/Event";
 import {Category} from "../model/Category";
 import {Order} from "../model/order/Order";
 import {EventOrder} from "../model/order/EventOrder";
+import {UserData} from "../model/storing/UserData";
 
 export const exampleCategories: Category[] = [
     {id: '1', name: 'Koncert'}
@@ -78,3 +79,9 @@ export const exampleOrder: Order[] = [
         date: '2025-10-10'
     }
 ]
+
+export const exampleProfileData: UserData = {
+    firstname: 'Lucjan',
+    lastname: 'Brzozowski',
+    email: 'lucjan@brzoz.pl'
+}

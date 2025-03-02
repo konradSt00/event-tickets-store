@@ -2,7 +2,8 @@ import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {Order} from "../../../model/order/Order";
 import dayjs from "dayjs";
 import {DATE_FORMAT} from "../../../constants";
-import {exampleOrder} from "../../../store/MockData";
+import {useSelector} from "react-redux";
+import {StoreState} from "../../../model/storing/StoreState";
 
 
 interface DataGridRowType {
@@ -18,6 +19,8 @@ interface DataGridRowType {
 let counter = 0;
 
 export const OrdersHistory = () => {
+
+    const orders = useSelector((state: StoreState) => state.profileState.historicalOrders)
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [
         {field: 'orderId', headerName: 'Order id', flex: 1},
@@ -45,7 +48,7 @@ export const OrdersHistory = () => {
 
     const getRows = (): DataGridRowType[] => {
         counter = 0;
-        return exampleOrder.flatMap(mapOrderToRows);
+        return orders.flatMap(mapOrderToRows);
     }
 
     return <div className={'orders-history-container'}>

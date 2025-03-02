@@ -1,6 +1,6 @@
 import {Roles} from "../model/Roles";
 
-let currentRole: Roles = 'ADMIN'
+let currentRole: Roles = 'USER'
 
 export class AuthService { // TODO
 

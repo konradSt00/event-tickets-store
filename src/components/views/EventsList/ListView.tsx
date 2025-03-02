@@ -1,9 +1,10 @@
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {Event} from "../../../model/Event"
-import {exampleEvents} from "../../../store/MockData";
 import {useState} from "react";
 import {rowControlsRenderer} from "./RowControlsRenderer";
 import {EventDetailsDialog} from "./EventDetails";
+import {useSelector} from "react-redux";
+import {StoreState} from "../../../model/storing/StoreState";
 
 interface DataGridRowType {
     id: number,
@@ -15,7 +16,7 @@ interface DataGridRowType {
 
 
 export const ListView = () => {
-    const [events, setEvents] = useState<Event[]>(exampleEvents)
+    const events = useSelector((state: StoreState) => state.events)
     const [detailedEvent, setDetailedEvent] = useState<Event | undefined>(undefined)
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [

@@ -51,8 +51,18 @@
     padding: 0 var(--element-spacing) var(--element-spacing);
 }
 
-.orders-history-container {
+.orders-history-container, .user-data-container {
     width: 60%;
     min-width: 700px;
-    margin: auto;
+    margin: calc(var(--element-spacing) * 2) auto auto;
+}
+
+.user-data-container {
+    div {
+        border: 1px solid black;
+    }
+
+    p {
+        padding: var(--element-spacing);
+    }
 }
