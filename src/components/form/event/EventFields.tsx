@@ -3,6 +3,11 @@ import React from "react";
 import {FormFields} from "../../../model/form/event/EventFormFields";
 import {EventDateField} from "./EventDateField";
 import CategorySelectField from "../category/CategorySelectField";
+import {
+    validateAvailableFromDate,
+    validateAvailableToDate,
+    validateEventDate
+} from "../../../validators/validateEventDates";
 
 export const EventFields = () => {
     return <>
@@ -10,10 +15,12 @@ export const EventFields = () => {
         <InputField fieldName={FormFields.DESCRIPTION} maxLength={999}/>
         <InputField fieldName={FormFields.LOCATION} maxLength={100}/>
         <InputField fieldName={FormFields.TICKET_PRICE} type={"number"}/>
-        <EventDateField fieldName={FormFields.EVENT_DATE}/>
+        <EventDateField fieldName={FormFields.EVENT_DATE} validate={validateEventDate}
+                        minDate={FormFields.AVAILABLE_TO}/>
         <InputField fieldName={FormFields.TICKETS_NUMBER} type={"number"} />
-        <EventDateField fieldName={FormFields.AVAILABLE_FROM}/>
-        <EventDateField fieldName={FormFields.AVAILABLE_TO}/>
+        <EventDateField fieldName={FormFields.AVAILABLE_FROM} validate={validateAvailableFromDate}/>
+        <EventDateField fieldName={FormFields.AVAILABLE_TO} validate={validateAvailableToDate}
+                        minDate={FormFields.AVAILABLE_FROM}/>
         <CategorySelectField fieldName={FormFields.CATEGORY}/>
     </>
 }

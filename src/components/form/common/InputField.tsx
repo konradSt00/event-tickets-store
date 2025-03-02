@@ -1,7 +1,7 @@
 import {TextField} from "@mui/material";
 import React from "react";
 import {useTheme} from "@mui/material/styles";
-import {Path, useFormContext} from "react-hook-form";
+import {FieldValues, Path, useFormContext, Validate} from "react-hook-form";
 
 interface InputFieldProps<FormFields> {
     fieldName: Path<FormFields>;
@@ -9,21 +9,22 @@ interface InputFieldProps<FormFields> {
     type?: React.HTMLInputTypeAttribute;
     multiline?: boolean;
     required?: boolean;
+    validate?: Validate<string, FieldValues>
 }
 
 export const InputField = <FormFields, >(props: InputFieldProps<FormFields>) => {
     const theme = useTheme();
     const {formState: {errors}, fieldName, maxLength = 99999, register, multiline = false, required = true, type = "text"} = {...useFormContext(), ...props}
-    const hasError = !!errors[fieldName]
+    const error = errors[fieldName]
     return <TextField
         label={`Please provide ${fieldName}`}
-        helperText={hasError && `Event ${fieldName} is required`}
+        helperText={error?.message ? `${error?.message}` : !!error && `Event ${fieldName} is required`}
         sx={{my: theme.spacing(1)}}
         color={'secondary'}
         multiline={multiline}
-        error={hasError}
+        error={!!error}
         fullWidth
         type={type}
-        {...register(fieldName, {required, maxLength})}
+        {...register(fieldName, {required, maxLength, validate: props.validate})}
     />
 }
