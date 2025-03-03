@@ -27,7 +27,7 @@ export const EventDetailsDialog = (props: EventDetailsProps) => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="https://www.fbserwis.pl/app/uploads/2022/10/pge_official.jpg"
+                            image={props.detailedEvent.imageLink}
                             alt="green iguana"
                         />
                         <CardContent>
@@ -35,7 +35,7 @@ export const EventDetailsDialog = (props: EventDetailsProps) => {
                                 {props.detailedEvent.name}
                             </Typography>
                             <Typography variant="body1">
-                                {props.detailedEvent.date.toDateString()}
+                                {`${props.detailedEvent.date.toDateString()}  ${props.detailedEvent.time}`}
                             </Typography>
                             <Typography variant="body2" sx={{color: 'text.secondary', marginTop: '18px'}}>
                                 {props.detailedEvent.description}

@@ -14,6 +14,8 @@ export const EventFields = () => {
         <InputField fieldName={FormFields.NAME} maxLength={30}/>
         <InputField fieldName={FormFields.DESCRIPTION} maxLength={999}/>
         <InputField fieldName={FormFields.LOCATION} maxLength={100}/>
+        <InputField fieldName={FormFields.IMAGE} maxLength={1000}/>
+        <InputField fieldName={FormFields.TIME} type={'time'}/>
         <InputField fieldName={FormFields.TICKET_PRICE} type={"number"}/>
         <EventDateField fieldName={FormFields.EVENT_DATE} validate={validateEventDate}
                         minDate={FormFields.AVAILABLE_TO}/>

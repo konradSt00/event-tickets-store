@@ -20,6 +20,8 @@ export const exampleEvents: Event[] = [
         availableTo: new Date(2025, 7, 3),
         description: 'Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakis Lorem ipsum costam przykladowy tekst jakisLorem ipsum costam przykladowy tekst jakisLorem ipsum costam przykladowy tekst jakis',
         ticketPrice: 123.99,
+        imageLink: 'https://s6.tvp.pl/images2/f/d/6/uid_fd6ea5f5aa5f492da76b4a10e036e526_width_1200_play_0_pos_0_gs_0_height_678_stadion-pge-narodowy-w-warszawie-fot-getty-images.jpg',
+        time: '11:00'
     },
     {
         id: 2,
@@ -32,6 +34,8 @@ export const exampleEvents: Event[] = [
         availableTo: new Date(2025, 5, 3),
         description: 'Lorem ipsum costam przykladowy tekst jakis',
         ticketPrice: 123.99,
+        imageLink: 'https://s6.tvp.pl/images2/f/d/6/uid_fd6ea5f5aa5f492da76b4a10e036e526_width_1200_play_0_pos_0_gs_0_height_678_stadion-pge-narodowy-w-warszawie-fot-getty-images.jpg',
+        time: '11:00'
     }
 ]
 

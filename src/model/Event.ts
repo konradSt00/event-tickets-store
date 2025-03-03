@@ -10,5 +10,7 @@ export interface Event {
     numberOfTicketsAvailable: number,
     ticketPrice: number,
     availableFrom: Date,
-    availableTo: Date
+    availableTo: Date,
+    imageLink: string,
+    time: string
 }

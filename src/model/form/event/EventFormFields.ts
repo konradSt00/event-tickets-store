@@ -8,7 +8,9 @@ export enum FormFields {
     TICKETS_NUMBER = 'ticketsNumber',
     TICKET_PRICE = "ticketPrice",
     AVAILABLE_FROM = 'availableFrom',
-    AVAILABLE_TO = 'availableTo'
+    AVAILABLE_TO = 'availableTo',
+    IMAGE = 'image',
+    TIME = 'time'
 }
 
 export interface EventFormValues {
@@ -21,4 +23,6 @@ export interface EventFormValues {
     [FormFields.TICKET_PRICE]: number;
     [FormFields.AVAILABLE_FROM]: string;
     [FormFields.AVAILABLE_TO]: string;
+    [FormFields.IMAGE]: string;
+    [FormFields.TIME]: string;
 }
