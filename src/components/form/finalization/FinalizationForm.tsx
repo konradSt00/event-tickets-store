@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
 import {OrderAlert} from "./OrderAlert";
 import {Actions} from "../../../actions/actions";
-import store from "../../../store/store";
 
 interface FinalizationFormProps {
     onSubmitAction?: () => void;
@@ -19,7 +18,7 @@ export const FinalizationForm = (props: FinalizationFormProps) => {
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
-        store.dispatch({type: Actions.SET_ORDER_STATUS, payload: 'Message'});
+        dispatch({type: Actions.SET_ORDER_STATUS, payload: 'Message'});
         props.onSubmitAction && props.onSubmitAction();
     }
 
