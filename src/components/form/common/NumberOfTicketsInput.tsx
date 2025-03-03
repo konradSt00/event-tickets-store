@@ -1,6 +1,6 @@
 import React, {ChangeEvent, MouseEvent} from "react";
-import {Button, TextField} from "@mui/material";
-import {MAX_TICKETS_PER_ORDER} from "../../../constants";
+import {Button, TextField, Typography} from "@mui/material";
+import {DEFAULT_CURRENCY, MAX_TICKETS_PER_ORDER} from "../../../constants";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {LocalCartService} from "../../../services/LocalCartService";
 import {Event} from "../../../model/Event";
@@ -66,6 +66,9 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
             }}
         />
         {!synchronizeInputWithCart && renderAddToCartBtn()}
+        <Typography>
+            Total: {(numberOfTickets * event.ticketPrice).toFixed(2)} {DEFAULT_CURRENCY}
+        </Typography>
     </>
 
 }

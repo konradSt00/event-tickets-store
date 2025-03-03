@@ -52,7 +52,7 @@ export const exampleEventOrder2: EventOrder[] = [
     {
         name: 'Koncert TacoHemingway Narodowy',
         quantity: 4,
-        price: 123.99
+        price: 123.99,
     },
     {
         name: 'Koncert Pitbull TauronArena',

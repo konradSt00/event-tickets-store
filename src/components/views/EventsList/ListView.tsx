@@ -5,13 +5,14 @@ import {rowControlsRenderer} from "./RowControlsRenderer";
 import {EventDetailsDialog} from "./EventDetails";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
+import {DEFAULT_CURRENCY} from "../../../constants";
 
 interface DataGridRowType {
     id: number,
     eventName: string,
     category: string,
     eventDate: Date,
-    price: number,
+    price: string,
 }
 
 
@@ -42,7 +43,7 @@ export const ListView = () => {
             eventName: event.name,
             category: event.category.name,
             eventDate: event.date,
-            price: event.ticketPrice,
+            price: event.ticketPrice + ' ' + DEFAULT_CURRENCY,
         }
     }
 

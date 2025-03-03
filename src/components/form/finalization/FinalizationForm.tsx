@@ -3,8 +3,11 @@ import {FormProvider, useForm} from "react-hook-form";
 import {RegisterFormValues} from "../../../model/form/register/RegisterFormFields";
 import {RegisterFields} from "../register/RegisterFields";
 import {Button} from "@mui/material";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
+import {OrderAlert} from "./OrderAlert";
+import {Actions} from "../../../actions/actions";
+import store from "../../../store/store";
 
 interface FinalizationFormProps {
     onSubmitAction?: () => void;
@@ -13,8 +16,10 @@ interface FinalizationFormProps {
 export const FinalizationForm = (props: FinalizationFormProps) => {
     const userData = useSelector((state: StoreState) => state.profileState.userData)
     const methods = useForm<RegisterFormValues>({defaultValues: {...userData}})
+    const dispatch = useDispatch();
 
     const handleSubmit = () => {
+        store.dispatch({type: Actions.SET_ORDER_STATUS, payload: 'Message'});
         props.onSubmitAction && props.onSubmitAction();
     }
 
@@ -22,6 +27,7 @@ export const FinalizationForm = (props: FinalizationFormProps) => {
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <RegisterFields withPassword={false}/>
             <Button variant={'contained'} type={'submit'}>Order</Button>
+            <OrderAlert/>
         </form>
     </FormProvider>
 }

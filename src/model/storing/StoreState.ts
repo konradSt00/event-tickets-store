@@ -1,13 +1,15 @@
 import {Event} from "../Event";
 import {Category} from "../Category";
 import {View} from "../../store/reducer";
-import {CartItem} from "../cart/CartItem";
 import {ProfileState} from "./ProfileState";
+import {OrderState} from "./OrderState";
+import {CartState} from "./CartState";
 
 export interface StoreState {
     events: Event[]
     categories: Category[]
     currentView: View,
-    cartItems: CartItem[],
     profileState: ProfileState
+    orderState: OrderState
+    cartState: CartState
 }

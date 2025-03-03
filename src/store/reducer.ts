@@ -9,10 +9,16 @@ const initialState: StoreState = {
     events: exampleEvents,
     categories: exampleCategories,
     currentView: 'EVENTS_LIST',
-    cartItems: [],
     profileState: {
         userData: exampleProfileData,
         historicalOrders: exampleOrder
+    },
+    orderState: {
+        responseMessage: undefined
+    },
+    cartState: {
+        cartItems: [],
+        cartOpened: false
     }
 }
 
@@ -26,12 +32,49 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
         case Actions.SWITCH_VIEW:
             return {
                 ...state,
-                currentView: action.payload
+                currentView: action.payload,
+                cartState: {
+                    ...state.cartState,
+                    cartOpened: false
+                }
             };
         case Actions.UPDATE_CART:
             return {
                 ...state,
-                cartItems: action.payload
+                cartState: {
+                    cartOpened: !(state.currentView === 'FINALIZATION_VIEW'),
+                    cartItems: action.payload
+                }
+            }
+        case Actions.CLEAR_ORDER_STATE:
+            return {
+                ...state,
+                orderState: {
+                    responseMessage: undefined
+                }
+            }
+        case Actions.SET_ORDER_STATUS:
+            return {
+                ...state,
+                orderState: {
+                    responseMessage: action.payload
+                }
+            }
+        case Actions.OPEN_CART:
+            return {
+                ...state,
+                cartState: {
+                    ...state.cartState,
+                    cartOpened: true
+                }
+            }
+        case Actions.CLOSE_CART:
+            return {
+                ...state,
+                cartState: {
+                    ...state.cartState,
+                    cartOpened: false
+                }
             }
         default:
             return state

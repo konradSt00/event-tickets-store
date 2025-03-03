@@ -21,7 +21,7 @@ export class LocalCartService {
     }
 
     public getAllItems(): CartItem[] {
-        return store.getState().cartItems;
+        return store.getState().cartState.cartItems;
     }
 
     public getEventItem(eventId: number): CartItem | undefined {
