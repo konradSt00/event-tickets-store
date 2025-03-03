@@ -3,14 +3,16 @@ import {FormProvider, useForm} from "react-hook-form";
 import {RegisterFormValues} from "../../../model/form/register/RegisterFormFields";
 import {RegisterFields} from "../register/RegisterFields";
 import {Button} from "@mui/material";
+import {useSelector} from "react-redux";
+import {StoreState} from "../../../model/storing/StoreState";
 
 interface FinalizationFormProps {
-    defaultValues?: RegisterFormValues;
     onSubmitAction?: () => void;
 }
 
 export const FinalizationForm = (props: FinalizationFormProps) => {
-    const methods = useForm<RegisterFormValues>({defaultValues: props.defaultValues})
+    const userData = useSelector((state: StoreState) => state.profileState.userData)
+    const methods = useForm<RegisterFormValues>({defaultValues: {...userData}})
 
     const handleSubmit = () => {
         props.onSubmitAction && props.onSubmitAction();

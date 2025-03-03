@@ -24,6 +24,10 @@ export class LocalCartService {
         return store.getState().cartItems;
     }
 
+    public getEventItem(eventId: number): CartItem | undefined {
+        return this.getAllItems().find(item => item.id === eventId);
+    }
+
     private buildCartItem(event: Event, quantity: number, allItems: CartItem[]) {
         const alreadyAdded = allItems.find(item => item.id === event.id);
         const quantitySum = quantity + (alreadyAdded?.quantity || 0)

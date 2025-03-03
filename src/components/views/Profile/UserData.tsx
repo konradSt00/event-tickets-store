@@ -8,7 +8,7 @@ export const UserData = () => {
     return <div className={'user-data-container'}>
         <h3>Your data</h3>
         <div>
-            <Typography>Name: {`${userData.firstname} ${userData.lastname}`}</Typography>
+            <Typography>Name: {`${userData.firstName} ${userData.lastName}`}</Typography>
             <Typography>Email: {userData.email}</Typography>
         </div>
     </div>

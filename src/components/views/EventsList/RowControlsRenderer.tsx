@@ -1,42 +1,19 @@
-import {Button, TextField} from "@mui/material";
-import {MAX_TICKETS_PER_ORDER} from "../../../constants";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import {LocalCartService} from "../../../services/LocalCartService";
 import React from "react";
 import {Event} from "../../../model/Event";
 import {OfferUnavailabilityAlert} from "./OfferUnavailabilityAlert";
 import {isEventTicketAvailable} from "../../../util/eventUtils";
+import {NumberOfTicketsInput} from "../../form/common/NumberOfTicketsInput";
 
-const localCartService = new LocalCartService();
 
 interface RowControlsProps {
     event: Event
 }
 
 export const EventControls = (props: RowControlsProps) => {
-    const {event} = {...props}
-    const [numberOfTickets, setNumberOfTickets] = React.useState(1);
-
-    const renderControls = () => {
-        return <>
-            <TextField
-                onClick={e => e.stopPropagation()}
-                value={numberOfTickets}
-                onChange={e => setNumberOfTickets(parseInt(e.target.value))}
-                type={'number'}
-                inputProps={{min: 1, max: Math.min(event.numberOfTicketsAvailable, MAX_TICKETS_PER_ORDER)}}
-            />
-            <Button variant={'text'} onClick={(e) => {
-                e.stopPropagation()
-                localCartService.addTicketToCart(event, numberOfTickets)
-            }}>
-                <AddShoppingCartIcon/>
-            </Button>
-        </>
-    }
+    const event = props.event;
 
     return isEventTicketAvailable(event)
-        ? renderControls()
+        ? <NumberOfTicketsInput event={event}/>
         : <OfferUnavailabilityAlert {...event}/>
 
 }

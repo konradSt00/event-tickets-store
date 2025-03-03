@@ -81,7 +81,7 @@ export const exampleOrder: Order[] = [
 ]
 
 export const exampleProfileData: UserData = {
-    firstname: 'Lucjan',
-    lastname: 'Brzozowski',
+    firstName: 'Lucjan',
+    lastName: 'Brzozowski',
     email: 'lucjan@brzoz.pl'
 }

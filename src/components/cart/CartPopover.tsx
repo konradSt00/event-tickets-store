@@ -6,6 +6,7 @@ import {redirectToFinalizationView} from "../../actions/redirectToFinalizationVi
 import {LoginAlert} from "../form/login/LoginAlert";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../model/storing/StoreState";
+import {NumberOfTicketsInput} from "../form/common/NumberOfTicketsInput";
 
 const localCartService = new LocalCartService();
 
@@ -13,10 +14,18 @@ export const CartPopover = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [showLoginAlert, setShowLoginAlert] = useState<boolean>(false);
     const items = useSelector((state: StoreState) => state.cartItems);
+    const events = useSelector((state: StoreState) => state.events);
 
     const renderItems = () => {
         return items.map(item => {
-            return <Typography sx={{ p: 2 }}>{item.name}  {item.quantity}</Typography>;
+            const itemEvent = events.find(event => event.id === item.id);
+            return !!itemEvent && <div>
+                <Typography sx={{p: 2}}>{item.name}</Typography>
+                <NumberOfTicketsInput
+                    event={itemEvent}
+                    synchronizeInputWithCart={true}
+                />
+            </div>
         })
     }
 
