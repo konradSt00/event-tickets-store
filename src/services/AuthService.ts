@@ -5,8 +5,10 @@ import {BEARER} from "../constants";
 import {getTokenRoles} from "../util/jwtUtils";
 import store from "../store/store";
 import {addRole} from "../actions/addRole";
+import {RegisterRq} from "../model/request/RegisterRq";
 
 const SIGN_IN_ENDPOINT = '/auth/signin'
+const SIGN_UP_ENDPOINT = '/auth/signup'
 
 export class AuthService extends AbstractService {
 
@@ -27,6 +29,10 @@ export class AuthService extends AbstractService {
             .then(response => this.handleToken(response.data))
     }
 
+    public static async register(data: RegisterRq) {
+        return await this.post<RegisterRq, string>(SIGN_UP_ENDPOINT, data)
+    }
+
     public static init() {
         const jwtToken = localStorage.getItem(BEARER);
         const roles = (jwtToken && getTokenRoles(jwtToken)) || []
@@ -39,7 +45,8 @@ export class AuthService extends AbstractService {
     }
 
     private static handleToken(token: string) {
-        if (token?.startsWith(BEARER)) {
+        if (!token) return
+        if (token.startsWith(BEARER)) {
             localStorage.setItem(BEARER, token)
             this.init();
         }

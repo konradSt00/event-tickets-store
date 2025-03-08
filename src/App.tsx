@@ -5,6 +5,7 @@ import store from "./store/store";
 import {ApplicationBar} from "./components/ApplicationBar";
 import {ContentWrapper} from "./components/ContentWrapper";
 import {updateCart} from "./actions/updateCart";
+import ViewManager from "./components/views/ViewManager";
 
 function App() {
     useEffect(() => {
@@ -14,7 +15,7 @@ function App() {
     return (<Provider store={store}>
             <ApplicationBar/>
             <ContentWrapper>
-                {/*<ViewManager/>*/}
+                <ViewManager/>
             </ContentWrapper>
         </Provider>
     );

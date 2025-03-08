@@ -1,10 +1,11 @@
-import {Chip, MenuItem, TextField} from "@mui/material";
-import React from "react";
+import {MenuItem, TextField} from "@mui/material";
+import React, {useEffect} from "react";
 import {useTheme} from "@mui/material/styles";
 import {connect} from 'react-redux';
 import {StoreState} from "../../../model/storing/StoreState";
 import {Controller, FieldValues, Path, useFormContext} from "react-hook-form";
 import {Category} from "../../../model/Category";
+import {CategoryService} from "../../../services/CategoryService";
 
 interface CategorySelectFieldOwnProps<FormValuesType extends FieldValues>{
     fieldName: Path<FormValuesType>
@@ -20,6 +21,10 @@ type CategorySelectFieldProps<FormValuesType extends FieldValues> = CategorySele
 const CategorySelectComponent = <FormValuesType extends FieldValues, >(props: CategorySelectFieldProps<FormValuesType>) => {
     const {control, fieldName, categories, required = true} = {...useFormContext(), ...props};
     const theme = useTheme();
+
+    useEffect(() => {
+        CategoryService.getCategories()
+    }, []);
 
     return <Controller name={fieldName} rules={{required: required}} control={control} render={(field) => {
         return <TextField

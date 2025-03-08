@@ -87,6 +87,11 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
                 ...state,
                 role: action.payload
             }
+        case Actions.ADD_CATEGORIES:
+            return {
+                ...state,
+                categories: action.payload
+            }
         default:
             return state
     }

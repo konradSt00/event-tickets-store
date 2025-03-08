@@ -11,7 +11,7 @@ interface DialogButtonProps<DialogProps> extends ButtonOwnProps {
 }
 
 export const DialogButton = <PropsType extends DialogProps, >(props: DialogButtonProps<PropsType>) => {
-    const {buttonLabel, dialog, dialogProps, disabled = false} = {...props}
+    const {buttonLabel, dialog, dialogProps, disabled = false, ...buttonProps} = {...props}
     const [dialogOpen, setDialogOpen] = React.useState(false);
 
     const handleDialogOpen = () => {
@@ -34,7 +34,7 @@ export const DialogButton = <PropsType extends DialogProps, >(props: DialogButto
             onClick={handleDialogOpen}
             size={'medium'}
             variant={'contained'}
-            {...props}
+            {...buttonProps}
         >
             {buttonLabel}
         </Button>

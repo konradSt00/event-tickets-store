@@ -1,4 +1,4 @@
 export interface LoginRq {
-    username: string;
+    email: string;
     password: string;
 }

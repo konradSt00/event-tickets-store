@@ -58,7 +58,7 @@ export const ListView = () => {
     return <div className={'list-item-container'}>
         <h3>Events</h3>
         <DataGrid
-            columns={getColumns()}
+            columns={getColumns() as any}
             rows={getRows()}
             rowSelection={false}
             onRowClick={(e) => setDetailedEvent(events[parseInt(e.id.toString()) - 1])}

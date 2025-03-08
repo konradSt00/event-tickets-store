@@ -16,13 +16,7 @@ export abstract class AbstractService {
     }
 
     protected static get<Rq, Rs>(endpoint: string): Promise<AxiosResponse<Rs>> {
-        return this.genericHandleRs(axios.get<Rs>(this.BASE_URL + endpoint, {
-            headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0MTQxNjY4OCwiZXhwIjoxNzQxNTAzMDg4fQ.ZJ_94UwOTcXrhL1bRNa-21zK9VBN28UoArV0JWAcSDc',
-                'Access-Control-Allow-Origin': '*',
-
-            }
-        }))
+        return this.genericHandleRs(axios.get<Rs>(this.BASE_URL + endpoint, {...this.getHeaders()}))
     }
 
     private static getHeaders(): AxiosRequestConfig {
@@ -37,7 +31,7 @@ export abstract class AbstractService {
 
     private static getAuthHeader() {
         const token = localStorage.getItem(BEARER)
-        const authenticated = !!token && token.startsWith(BEARER);
+        const authenticated = !!token && token?.startsWith(BEARER);
 
         return authenticated
             ? {'Authorization': token}

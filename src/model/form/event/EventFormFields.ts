@@ -18,7 +18,7 @@ export interface EventFormValues {
     [FormFields.CATEGORY]: string;
     [FormFields.DESCRIPTION]: string;
     [FormFields.LOCATION]: string;
-    [FormFields.EVENT_DATE]?: string;
+    [FormFields.EVENT_DATE]: string;
     [FormFields.TICKETS_NUMBER]: number;
     [FormFields.TICKET_PRICE]: number;
     [FormFields.AVAILABLE_FROM]: string;

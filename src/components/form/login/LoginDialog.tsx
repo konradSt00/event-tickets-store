@@ -4,6 +4,8 @@ import {DialogProps} from "../../../model/form/dialogs/DialogProps";
 import {LoginFields} from "./LoginFields";
 import {ActionButtons} from "../../../model/form/dialogs/ActionButtons";
 import {AuthService} from "../../../services/AuthService";
+import {LoginRq} from "../../../model/request/LoginRq";
+import {FormFields, LoginFormValues} from "../../../model/form/login/LoginFormFields";
 
 interface LoginDialogProps extends DialogProps {
     onSuccessLogin?: () => void
@@ -13,16 +15,23 @@ export const LoginDialog = (props: LoginDialogProps) => {
     const getActionButtons = (): ActionButtons => {
         return {
             primary: {
-                label: 'LOGIN', action: (data) => {
+                label: 'LOGIN',
+                action: (data) => {
                     props.onSuccessLogin && props.onSuccessLogin();
-                    AuthService.login({
-                        username: data.email,
-                        password: data.password
-                    });
-                    return {} as any;
+                    AuthService.login(buildLoginRq(data));
                 }
             },
-            secondary: {action: (data) => {return {} as any}}
+            secondary: {
+                action: () => {
+                }
+            }
+        }
+    }
+
+    const buildLoginRq = (data: LoginFormValues): LoginRq => {
+        return {
+            email: data[FormFields.EMAIL],
+            password: data[FormFields.PASSWORD]
         }
     }
 
