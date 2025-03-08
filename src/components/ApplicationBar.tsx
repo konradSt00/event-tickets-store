@@ -8,11 +8,19 @@ import {LoginButton} from "./form/login/LoginButton";
 import {RegisterButton} from "./form/register/RegisterButton";
 import PersonIcon from '@mui/icons-material/Person';
 import {redirectToProfile} from "../actions/redirectToProfile";
+import {useSelector} from "react-redux";
+import {StoreState} from "../model/storing/StoreState";
+import {useEffect} from "react";
 
 export const ApplicationBar = () => {
+    useEffect(() => {
+        AuthService.init()
+
+    }, []);
+    const role = useSelector((state: StoreState) => state.role)
 
     const renderAdminToolsIfAuthorized = () => {
-        return AuthService.isAdmin() && <>
+        return AuthService.isAdmin(role) && <>
             <DialogButton
                 buttonLabel={'Add new event'}
                 dialog={AddEventDialog}
@@ -26,7 +34,7 @@ export const ApplicationBar = () => {
     }
 
     const renderGuestButtons = () => {
-        return AuthService.isGuest()
+        return AuthService.isGuest(role)
             ? <>
                 <LoginButton/>
                 <RegisterButton/>
@@ -37,7 +45,7 @@ export const ApplicationBar = () => {
     return <div className={'app-bar-container'}>
         {renderAdminToolsIfAuthorized()}
         {renderGuestButtons()}
-        {!AuthService.isGuest() && <>
+        {!AuthService.isGuest(role) && <>
                 <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>
                 <Button onClick={redirectToProfile}><PersonIcon/></Button>
             </>

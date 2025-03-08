@@ -19,7 +19,8 @@ const initialState: StoreState = {
     cartState: {
         cartItems: [],
         cartOpened: false
-    }
+    },
+    role: 'ROLE_GUEST'
 }
 
 export interface StoreActionType extends Action<string> {
@@ -80,6 +81,11 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
             return {
                 ...state,
                 events: action.payload
+            }
+        case Actions.ADD_ROLE:
+            return {
+                ...state,
+                role: action.payload
             }
         default:
             return state

@@ -2,26 +2,24 @@ import {Roles} from "../model/Roles";
 import {AbstractService} from "./AbstractService";
 import {LoginRq} from "../model/request/LoginRq";
 import {BEARER} from "../constants";
+import {getTokenRoles} from "../util/jwtUtils";
+import store from "../store/store";
+import {addRole} from "../actions/addRole";
 
-let currentRole: Roles = 'GUEST'
 const SIGN_IN_ENDPOINT = '/auth/signin'
 
-export class AuthService extends AbstractService { // TODO
+export class AuthService extends AbstractService {
 
-    public static getUserRole(): Roles {
-        return currentRole;
+    public static isUser(role: Roles) {
+        return role === 'ROLE_USER';
     }
 
-    public static isUser() {
-        return AuthService.getUserRole() === 'USER';
+    public static isAdmin(role: Roles) {
+        return role === 'ROLE_ADMIN';
     }
 
-    public static isAdmin() {
-        return AuthService.getUserRole() === 'ADMIN';
-    }
-
-    public static isGuest() {
-        return AuthService.getUserRole() === 'GUEST';
+    public static isGuest(role: Roles) {
+        return role === 'ROLE_GUEST';
     }
 
     public static async login(data: LoginRq) {
@@ -29,13 +27,21 @@ export class AuthService extends AbstractService { // TODO
             .then(response => this.handleToken(response.data))
     }
 
+    public static init() {
+        const jwtToken = localStorage.getItem(BEARER);
+        const roles = (jwtToken && getTokenRoles(jwtToken)) || []
+        store.dispatch(addRole(roles?.length > 0 ? roles[0] : 'ROLE_GUEST'))
+    }
+
     public static logout() {
-        currentRole = 'GUEST';
+        localStorage.removeItem(BEARER);
+        AuthService.init();
     }
 
     private static handleToken(token: string) {
-        if (token.startsWith(BEARER)) {
+        if (token?.startsWith(BEARER)) {
             localStorage.setItem(BEARER, token)
+            this.init();
         }
     }
 }

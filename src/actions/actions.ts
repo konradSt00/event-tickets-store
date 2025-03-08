@@ -6,6 +6,7 @@ export enum Actions {
     SET_ORDER_STATUS = 'setOrderState',
     CLOSE_CART = 'closeCart',
     OPEN_CART = 'openCart',
-    ADD_EVENTS = 'addEvents'
+    ADD_EVENTS = 'addEvents',
+    ADD_ROLE = 'addRole'
 }
 

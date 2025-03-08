@@ -14,7 +14,7 @@ export class EventService extends AbstractService {
             .then(response =>
                 store.dispatch({
                     type: Actions.ADD_EVENTS,
-                    payload: response.data.map(event => {
+                    payload: response.data?.map(event => {
                         return {
                             ...event, // TODO reformat
                             date: dayjs(event.date, DATE_FORMAT).toDate(),

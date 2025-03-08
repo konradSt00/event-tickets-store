@@ -1,1 +1,1 @@
-export type Roles = 'ADMIN' | 'USER' | 'GUEST'
+export type Roles = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_GUEST'
