@@ -6,6 +6,8 @@ import {EventDetailsDialog} from "./EventDetails";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
 import {DEFAULT_CURRENCY} from "../../../constants";
+import {EventService} from "../../../services/EventService";
+import {Button} from "@mui/material";
 
 interface DataGridRowType {
     id: number,
@@ -19,6 +21,10 @@ interface DataGridRowType {
 export const ListView = () => {
     const events = useSelector((state: StoreState) => state.events)
     const [detailedEvent, setDetailedEvent] = useState<Event | undefined>(undefined)
+
+    // useEffect(() => {
+    //
+    // }, []);
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [
         {field: 'id', headerName: '', flex: 1, disableColumnMenu: true, disableReorder: true, hideSortIcons: true},
@@ -62,5 +68,6 @@ export const ListView = () => {
         <EventDetailsDialog
             detailedEvent={detailedEvent}
             closeEventDetails={() => setDetailedEvent(undefined)}/>
+        <Button onClick={() => EventService.getAllAvailableEvents()}>go</Button>
     </div>
 }

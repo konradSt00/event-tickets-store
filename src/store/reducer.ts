@@ -1,12 +1,12 @@
 import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
-import {exampleCategories, exampleEvents, exampleOrder, exampleProfileData} from "./MockData";
+import {exampleCategories, exampleOrder, exampleProfileData} from "./MockData";
 
 export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
 
 const initialState: StoreState = {
-    events: exampleEvents,
+    events: [],
     categories: exampleCategories,
     currentView: 'EVENTS_LIST',
     profileState: {
@@ -75,6 +75,11 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
                     ...state.cartState,
                     cartOpened: false
                 }
+            }
+        case Actions.ADD_EVENTS:
+            return {
+                ...state,
+                events: action.payload
             }
         default:
             return state

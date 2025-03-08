@@ -7,10 +7,12 @@ export interface Event {
     description: string,
     location: string,
     date: Date,
+    imageLink: string,
+    time: string
+
     numberOfTicketsAvailable: number,
     ticketPrice: number,
     availableFrom: Date,
     availableTo: Date,
-    imageLink: string,
-    time: string
+
 }
