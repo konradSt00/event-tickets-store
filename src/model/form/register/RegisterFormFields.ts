@@ -3,8 +3,8 @@ export enum FormFields {
     EMAIL = 'email',
     PASSWORD = 'password',
     REPEAT_PASSWORD = 'repeatPassword',
-    FIRST_NAME = 'firstName',
-    LAST_NAME = 'lastName',
+    FIRST_NAME = 'firstname',
+    LAST_NAME = 'lastname',
 }
 
 export interface RegisterFormValues {

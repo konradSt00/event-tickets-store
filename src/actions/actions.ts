@@ -8,6 +8,7 @@ export enum Actions {
     OPEN_CART = 'openCart',
     ADD_EVENTS = 'addEvents',
     ADD_CATEGORIES = 'addCategories',
+    ADD_USER_DATA = 'addUserData',
     ADD_ROLE = 'addRole'
 }
 

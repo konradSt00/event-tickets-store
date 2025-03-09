@@ -2,7 +2,7 @@ import {Roles} from "../model/Roles";
 import {AbstractService} from "./AbstractService";
 import {LoginRq} from "../model/request/LoginRq";
 import {BEARER} from "../constants";
-import {getTokenRoles} from "../util/jwtUtils";
+import {getTokenRoles, getTokenUserId} from "../util/jwtUtils";
 import store from "../store/store";
 import {addRole} from "../actions/addRole";
 import {RegisterRq} from "../model/request/RegisterRq";
@@ -42,6 +42,12 @@ export class AuthService extends AbstractService {
     public static logout() {
         localStorage.removeItem(BEARER);
         AuthService.init();
+    }
+
+    public static getUserId() {
+        const jwtToken = localStorage.getItem(BEARER);
+        if (!jwtToken) return -1;
+        return getTokenUserId(jwtToken);
     }
 
     private static handleToken(token: string) {

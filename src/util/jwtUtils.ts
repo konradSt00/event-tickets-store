@@ -3,15 +3,22 @@ import {Roles} from "../model/Roles";
 
 interface DecodedToken {
     roles: Roles[];
-    exp: number
-
+    exp: number,
+    userId: number
 }
 
 export const getTokenRoles = (jwt: string): Roles[] => {
     try {
-        const decoded = jwtDecode(jwt) as DecodedToken;
-        return decoded.roles;
+        return jwtDecode<DecodedToken>(jwt).roles;
     } catch (error) {
         return [];
+    }
+}
+
+export const getTokenUserId = (jwt: string): number => {
+    try {
+        return jwtDecode<DecodedToken>(jwt).userId;
+    } catch (error) {
+        return -1;
     }
 }

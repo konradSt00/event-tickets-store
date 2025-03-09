@@ -92,6 +92,14 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
                 ...state,
                 categories: action.payload
             }
+        case Actions.ADD_USER_DATA:
+            return {
+                ...state,
+                profileState: {
+                    ...state.profileState,
+                    userData: action.payload
+                }
+            }
         default:
             return state
     }
