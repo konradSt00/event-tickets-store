@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import {DATE_FORMAT} from "../../../constants";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
+import {useEffect} from "react";
+import {OrderService} from "../../../services/OrderService";
 
 
 interface DataGridRowType {
@@ -21,6 +23,10 @@ let counter = 0;
 export const OrdersHistory = () => {
 
     const orders = useSelector((state: StoreState) => state.profileState.historicalOrders)
+
+    useEffect(() => {
+        OrderService.getOrders()
+    }, []);
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [
         {field: 'orderId', headerName: 'Order id', flex: 1},

@@ -4,12 +4,15 @@ import {NumberOfTicketsInput} from "../form/common/NumberOfTicketsInput";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../model/storing/StoreState";
 import {DEFAULT_CURRENCY} from "../../constants";
+import {OrderService} from "../../services/OrderService";
+import {buildOrderRq} from "../../util/orderUtil";
 
 const localCartService =  new LocalCartService();
 
 export const FinalizationView = () => {
     const cartItems = useSelector((state: StoreState) => state.cartState.cartItems);
     const allEvents = useSelector((state: StoreState) => state.events);
+    const profileData = useSelector((state: StoreState) => state.profileState.userData);
 
     const getAmountToPay = () => {
         let total = 0;
@@ -35,7 +38,10 @@ export const FinalizationView = () => {
         <span>Amount to pay: {getAmountToPay()} {DEFAULT_CURRENCY}</span>
         <div>
             <h3>Please provide your data</h3>
-            <FinalizationForm onSubmitAction={() => localCartService.clearCart()}/>
+            <FinalizationForm onSubmitAction={() => {
+                OrderService.createOrder(buildOrderRq(cartItems, profileData.email))
+                localCartService.clearCart()
+            }}/>
         </div>
     </div>
 }
