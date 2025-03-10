@@ -10,6 +10,8 @@ export enum Actions {
     ADD_CATEGORIES = 'addCategories',
     ADD_USER_DATA = 'addUserData',
     ADD_ORDERS = 'addOrders',
-    ADD_ROLE = 'addRole'
+    ADD_ROLE = 'addRole',
+    PUSH_ALERT = 'pushAlert',
+    CLEAR_ALERTS = 'clearAlerts'
 }
 

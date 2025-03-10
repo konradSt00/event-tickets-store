@@ -5,6 +5,7 @@ import {ProfileState} from "./ProfileState";
 import {OrderState} from "./OrderState";
 import {CartState} from "./CartState";
 import {Roles} from "../Roles";
+import {DialogAlert} from "./DialogAlert";
 
 export interface StoreState {
     events: Event[]
@@ -13,5 +14,6 @@ export interface StoreState {
     profileState: ProfileState
     orderState: OrderState
     cartState: CartState,
-    role: Roles
+    role: Roles,
+    alerts: DialogAlert[]
 }

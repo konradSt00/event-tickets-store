@@ -1,13 +1,13 @@
 import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
-import {exampleCategories, exampleProfileData} from "./MockData";
+import {exampleProfileData} from "./MockData";
 
 export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
 
 const initialState: StoreState = {
     events: [],
-    categories: exampleCategories,
+    categories: [],
     currentView: 'EVENTS_LIST',
     profileState: {
         userData: exampleProfileData,
@@ -20,7 +20,8 @@ const initialState: StoreState = {
         cartItems: [],
         cartOpened: false
     },
-    role: 'ROLE_GUEST'
+    role: 'ROLE_GUEST',
+    alerts: []
 }
 
 export interface StoreActionType extends Action<string> {
@@ -107,6 +108,16 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
                     ...state.profileState,
                     historicalOrders: action.payload
                 }
+            }
+        case Actions.PUSH_ALERT:
+            return {
+                ...state,
+                alerts: [action.payload, ...state.alerts]
+            }
+        case Actions.CLEAR_ALERTS:
+            return {
+                ...state,
+                alerts: []
             }
         default:
             return state

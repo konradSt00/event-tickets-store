@@ -9,6 +9,7 @@ import {buildOrderRq} from "../../util/orderUtil";
 import {useEffect} from "react";
 import {EventService} from "../../services/EventService";
 import {CartItem} from "../../model/cart/CartItem";
+import {DialogService} from "../../services/DialogService";
 
 const localCartService =  new LocalCartService();
 
@@ -30,7 +31,9 @@ export const FinalizationView = () => {
         cartItems.forEach(item => {
             cartStateChanged = checkAndCorrectIfCartStateChanged(item)
         })
-        if (cartStateChanged) console.log('Cart state change! Check your order.')
+        if (cartStateChanged) {
+            DialogService.showAlertDialog({type: "warning", message: 'Cart state change! Check your order.'})
+        }
     }, [allEvents]);
 
     const checkAndCorrectIfCartStateChanged = (item: CartItem) => {
