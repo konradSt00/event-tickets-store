@@ -6,6 +6,7 @@ import {getTokenRoles, getTokenUserId} from "../util/jwtUtils";
 import store from "../store/store";
 import {addRole} from "../actions/addRole";
 import {RegisterRq} from "../model/request/RegisterRq";
+import {DialogService} from "./DialogService";
 
 const SIGN_IN_ENDPOINT = '/auth/signin'
 const SIGN_UP_ENDPOINT = '/auth/signup'
@@ -42,6 +43,7 @@ export class AuthService extends AbstractService {
     public static logout() {
         localStorage.removeItem(BEARER);
         AuthService.init();
+        DialogService.showAlertDialog({type: "info", message: 'You have been logged out'})
     }
 
     public static getUserId() {

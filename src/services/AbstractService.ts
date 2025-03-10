@@ -1,12 +1,13 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {BEARER} from "../constants";
+import {DialogService} from "./DialogService";
 
 export abstract class AbstractService {
     protected static BASE_URL: string = 'http://localhost:8080/api';
 
     private static async genericHandleRs<Rq, Rs>(rs: Promise<AxiosResponse<Rs>>): Promise<AxiosResponse<Rs>> {
         return rs.catch((reason) => {
-            console.log(reason);
+            DialogService.showAlertDialog({type: "error", message: reason.response.data.message})
             return reason;
         })
     }
