@@ -6,6 +6,9 @@ import {StoreState} from "../../model/storing/StoreState";
 import {DEFAULT_CURRENCY} from "../../constants";
 import {OrderService} from "../../services/OrderService";
 import {buildOrderRq} from "../../util/orderUtil";
+import {useEffect} from "react";
+import {EventService} from "../../services/EventService";
+import {CartItem} from "../../model/cart/CartItem";
 
 const localCartService =  new LocalCartService();
 
@@ -13,6 +16,34 @@ export const FinalizationView = () => {
     const cartItems = useSelector((state: StoreState) => state.cartState.cartItems);
     const allEvents = useSelector((state: StoreState) => state.events);
     const profileData = useSelector((state: StoreState) => state.profileState.userData);
+
+
+    useEffect(() => {
+        const intervalId = EventService.startAutoRefreshOffers()
+        return () => {
+            clearInterval(intervalId);
+        }
+    }, []);
+
+    useEffect(() => {
+        let cartStateChanged = false;
+        cartItems.forEach(item => {
+            cartStateChanged = checkAndCorrectIfCartStateChanged(item)
+        })
+        if (cartStateChanged) console.log('Cart state change! Check your order.')
+    }, [allEvents]);
+
+    const checkAndCorrectIfCartStateChanged = (item: CartItem) => {
+        const itemEvent = allEvents.find(event => event.id === item.id);
+        if (!!itemEvent) {
+            const ticketsLeft = (itemEvent.numberOfTicketsAvailable || 0) - item.quantity;
+            if (ticketsLeft < 0) {
+                localCartService.removeTicketFromCart(itemEvent, -1 * ticketsLeft)
+                return true;
+            }
+        }
+        return false;
+    }
 
     const getAmountToPay = () => {
         let total = 0;

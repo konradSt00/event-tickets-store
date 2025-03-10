@@ -1,9 +1,11 @@
-import React, {ChangeEvent, MouseEvent} from "react";
+import React, {ChangeEvent, MouseEvent, useEffect} from "react";
 import {Button, TextField, Typography} from "@mui/material";
 import {DEFAULT_CURRENCY, MAX_TICKETS_PER_ORDER} from "../../../constants";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {LocalCartService} from "../../../services/LocalCartService";
 import {Event} from "../../../model/Event";
+import {useSelector} from "react-redux";
+import {StoreState} from "../../../model/storing/StoreState";
 
 const DEFAULT_NUMBER_OF_TICKETS = 1;
 const ZERO_NUMBER_OF_TICKETS = 0;
@@ -17,10 +19,23 @@ export interface NumberOfTicketsInputProps {
 export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
     const {event, synchronizeInputWithCart = false} = {...props}
 
+    const cartItemQuantity = useSelector((state: StoreState) => {
+        if (synchronizeInputWithCart) {
+            return state.cartState.cartItems.find(item => item.id === event.id)?.quantity
+        }
+        return 0;
+    });
+
+    useEffect(() => {
+        if (synchronizeInputWithCart) {
+            setNumberOfTickets(cartItemQuantity || 0)
+        }
+    }, [cartItemQuantity]);
+
     const getInitialNumberOfTickets = (): number => {
         let numberOfTickets;
         if (synchronizeInputWithCart) {
-            numberOfTickets = localCartService.getEventItem(event.id)?.quantity;
+            numberOfTickets = cartItemQuantity;
         }
         return numberOfTickets || DEFAULT_NUMBER_OF_TICKETS;
     }
@@ -34,7 +49,7 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
         if (!synchronizeInputWithCart) setNumberOfTickets(newValue)
         else {
             setNumberOfTickets(newValue);
-            const alreadyAddedQuantity = localCartService.getEventItem(event.id)?.quantity || ZERO_NUMBER_OF_TICKETS;
+            const alreadyAddedQuantity = cartItemQuantity || ZERO_NUMBER_OF_TICKETS;
             const numberOfTicketsChange = newValue - alreadyAddedQuantity;
             localCartService.addTicketToCart(event, numberOfTicketsChange)
         }

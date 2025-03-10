@@ -21,7 +21,11 @@ export const ListView = () => {
     const [detailedEvent, setDetailedEvent] = useState<Event | undefined>(undefined)
 
     useEffect(() => {
-        EventService.getAllAvailableEvents()
+        EventService.getAllAvailableEvents();
+        const intervalId = EventService.startAutoRefreshOffers()
+        return () => {
+            clearInterval(intervalId);
+        }
     }, []);
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [

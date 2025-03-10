@@ -13,7 +13,11 @@ export class LocalCartService {
         const newCart = allItems.filter(item => item.id !== event.id)
         const newItem = this.buildCartItem(event, quantity, allItems);
         !!newItem && newCart.push(newItem);
-        updateCart(newCart);
+        updateCart(newCart.filter(item => item.quantity > 0));
+    }
+
+    public removeTicketFromCart(event: Event, quantity: number) {
+        this.addTicketToCart(event, -1 * quantity)
     }
 
     public clearCart() {

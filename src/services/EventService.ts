@@ -6,6 +6,7 @@ import {EventRqRs} from "../model/request/EventRqRs";
 
 const ALL_EVENTS_ENDPOINT = '/events/all';
 const CREATE_EVENT_ENDPOINT = '/events/new';
+const AUTO_REFRESH_INTERVAL = 30000;
 const mapper = new EventRsRqMapper();
 
 export class EventService extends AbstractService {
@@ -16,6 +17,10 @@ export class EventService extends AbstractService {
                     type: Actions.ADD_EVENTS,
                     payload: response.data?.map(event => mapper.mapRs(event))
                 })).catch((reason) => console.log(reason))
+    }
+
+    public static startAutoRefreshOffers = () => {
+        return setInterval(() => this.getAllAvailableEvents(), AUTO_REFRESH_INTERVAL);
     }
 
     public static createNewEvent(event: any) {
