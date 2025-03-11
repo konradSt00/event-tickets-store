@@ -11,6 +11,7 @@ import {redirectToProfile} from "../actions/redirectToProfile";
 import {useSelector} from "react-redux";
 import {StoreState} from "../model/storing/StoreState";
 import {useEffect} from "react";
+import {HomeButton} from "./views/HomeButton";
 
 export const ApplicationBar = () => {
     useEffect(() => {
@@ -43,6 +44,7 @@ export const ApplicationBar = () => {
     }
 
     return <div className={'app-bar-container'}>
+        <HomeButton/>
         {renderAdminToolsIfAuthorized()}
         {renderGuestButtons()}
         {!AuthService.isGuest(role) && <>
