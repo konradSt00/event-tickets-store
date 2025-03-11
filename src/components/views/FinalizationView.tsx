@@ -10,6 +10,7 @@ import {useEffect} from "react";
 import {EventService} from "../../services/EventService";
 import {CartItem} from "../../model/cart/CartItem";
 import {DialogService} from "../../services/DialogService";
+import {redirectToSummaryView} from "../../actions/redirectToSummaryView";
 
 const localCartService =  new LocalCartService();
 
@@ -57,6 +58,16 @@ export const FinalizationView = () => {
         return total.toFixed(2);
     }
 
+    const handleOrderFinalization = () => {
+        if (!profileData?.email) return;
+        OrderService.createOrder(buildOrderRq(cartItems, profileData.email))
+            .then(order => {
+                redirectToSummaryView(order)
+                localCartService.clearCart()
+            })
+
+    }
+
     return <div className={'finalization-view-container'}>
         <h1>Finish your order</h1>
         <div className={'order-summary-container'}>
@@ -72,10 +83,7 @@ export const FinalizationView = () => {
         <span>Amount to pay: {getAmountToPay()} {DEFAULT_CURRENCY}</span>
         <div>
             <h3>Please provide your data</h3>
-            <FinalizationForm onSubmitAction={() => {
-                OrderService.createOrder(buildOrderRq(cartItems, profileData.email))
-                localCartService.clearCart()
-            }}/>
+            <FinalizationForm onSubmitAction={handleOrderFinalization}/>
         </div>
     </div>
 }

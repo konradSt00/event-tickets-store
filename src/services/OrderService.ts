@@ -1,14 +1,18 @@
 import {AbstractService} from "./AbstractService";
-import {OrderRsRq} from "../model/request/OrderRsRq";
+import {OrderRq} from "../model/request/OrderRq";
 import {AuthService} from "./AuthService";
 import store from "../store/store";
 import {Actions} from "../actions/actions";
-import {Order} from "../model/order/Order";
 import {OrderRs} from "../model/response/OrderRs";
+import {OrderMapper} from "../mapper/OrderMapper";
+import {Order} from "../model/order/Order";
 
 export class OrderService extends AbstractService {
-    public static createOrder(request: OrderRsRq) {
-        this.post<OrderRsRq, OrderRsRq>('/orders/new', request);
+    private static orderMapper = new OrderMapper();
+
+    public static createOrder(request: OrderRq): Promise<Order> {
+        return this.post<OrderRq, OrderRs>('/orders/new', request)
+            .then((response) => this.orderMapper.mapRs(response.data));
     }
 
     public static getOrders() {
@@ -16,18 +20,7 @@ export class OrderService extends AbstractService {
             .then(response => {
                 store.dispatch({
                     type: Actions.ADD_ORDERS,
-                    payload: response.data.map(orderRs => {
-                        return {
-                            date: orderRs.date,
-                            event: orderRs.eventOrderRsList.map(eventOrderRs => {
-                                return {
-                                    name: eventOrderRs.eventName,
-                                    quantity: eventOrderRs.quantity,
-                                    price: eventOrderRs.ticketPrice
-                                }
-                            })
-                        } as Order
-                    })
+                    payload: response.data.map(this.orderMapper.mapRs)
                 })
             })
     }

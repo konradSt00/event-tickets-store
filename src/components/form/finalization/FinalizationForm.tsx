@@ -5,7 +5,6 @@ import {RegisterFields} from "../register/RegisterFields";
 import {Button} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
-import {OrderAlert} from "./OrderAlert";
 import {Actions} from "../../../actions/actions";
 import {UserDataService} from "../../../services/UserDataService";
 
@@ -31,7 +30,6 @@ export const FinalizationForm = (props: FinalizationFormProps) => {
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <RegisterFields withPassword={false}/>
             <Button variant={'contained'} type={'submit'}>Order</Button>
-            <OrderAlert/>
         </form>
     </FormProvider>
 }

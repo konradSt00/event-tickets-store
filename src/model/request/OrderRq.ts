@@ -1,4 +1,4 @@
-export interface OrderRsRq {
+export interface OrderRq {
     eventOrder: EventOrderRqRs[],
     userEmail: string,
 }

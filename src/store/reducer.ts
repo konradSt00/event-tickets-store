@@ -1,20 +1,15 @@
 import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
-import {exampleProfileData} from "./MockData";
 
-export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW';
+export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW' | 'SUMMARY_VIEW';
 
 const initialState: StoreState = {
     events: [],
     categories: [],
     currentView: 'EVENTS_LIST',
     profileState: {
-        userData: exampleProfileData,
         historicalOrders: []
-    },
-    orderState: {
-        responseMessage: undefined
     },
     cartState: {
         cartItems: [],
@@ -46,20 +41,6 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
                 cartState: {
                     cartOpened: !(state.currentView === 'FINALIZATION_VIEW'),
                     cartItems: action.payload
-                }
-            }
-        case Actions.CLEAR_ORDER_STATE:
-            return {
-                ...state,
-                orderState: {
-                    responseMessage: undefined
-                }
-            }
-        case Actions.SET_ORDER_STATUS:
-            return {
-                ...state,
-                orderState: {
-                    responseMessage: action.payload
                 }
             }
         case Actions.OPEN_CART:
@@ -118,6 +99,11 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
             return {
                 ...state,
                 alerts: []
+            }
+        case Actions.ADD_PLACED_ORDER:
+            return {
+                ...state,
+                placedOrder: action.payload
             }
         default:
             return state
