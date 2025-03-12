@@ -62,8 +62,10 @@ export const FinalizationView = () => {
         if (!profileData?.email) return;
         OrderService.createOrder(buildOrderRq(cartItems, profileData.email))
             .then(order => {
-                redirectToSummaryView(order)
-                localCartService.clearCart()
+                if (!!order?.id) {
+                    redirectToSummaryView(order)
+                    localCartService.clearCart()
+                }
             })
 
     }
@@ -72,9 +74,9 @@ export const FinalizationView = () => {
         <h1>Finish your order</h1>
         <div className={'order-summary-container'}>
             <h3>Order summary</h3>
-            {cartItems.map(item => {
+            {cartItems.map((item, index) => {
                 const event = allEvents.find(event => event.id === item.id);
-                return !!event && <span>
+                return !!event && <span key={index}>
                     {`${item.name}   x`}
                     <NumberOfTicketsInput event={event} synchronizeInputWithCart={true}/>
                 </span>

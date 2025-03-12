@@ -25,5 +25,5 @@ export const validateAvailableToDate: Validate<string, FieldValues> = (available
 }
 
 const isFutureDate = (date: dayjs.Dayjs): boolean => {
-    return date.isAfter(dayjs())
+    return date.isAfter(dayjs(), 'days')
 }

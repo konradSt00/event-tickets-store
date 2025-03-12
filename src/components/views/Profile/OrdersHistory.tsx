@@ -1,7 +1,7 @@
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {Order} from "../../../model/order/Order";
 import dayjs from "dayjs";
-import {DATE_FORMAT} from "../../../constants";
+import {DATE_FORMAT, DEFAULT_CURRENCY} from "../../../constants";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
 import {useEffect} from "react";
@@ -13,9 +13,9 @@ interface DataGridRowType {
     orderId: string,
     eventName: string,
     date: Date,
-    price: number,
+    price: string,
     quantity: number,
-    totalPrice: number
+    totalPrice: string
 }
 
 let counter = 0;
@@ -46,8 +46,8 @@ export const OrdersHistory = () => {
                 date: dayjs(order.date, DATE_FORMAT).toDate(),
                 eventName: event.name,
                 quantity: event.quantity,
-                price: event.price,
-                totalPrice: event.price * event.quantity
+                price: `${event.price.toFixed(2)} ${DEFAULT_CURRENCY}`,
+                totalPrice: `${event.price * event.quantity} ${DEFAULT_CURRENCY}`
             }
         })
     }

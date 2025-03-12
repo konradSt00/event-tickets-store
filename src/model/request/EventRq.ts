@@ -1,9 +1,7 @@
-import {Category} from "../Category";
-
-export interface EventRqRs {
+export interface EventRq {
     id: number,
     name: string,
-    category: Category,
+    categoryId: string,
     description: string,
     location: string,
     date: string,

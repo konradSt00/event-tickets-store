@@ -13,6 +13,7 @@ export enum Actions {
     ADD_ROLE = 'addRole',
     PUSH_ALERT = 'pushAlert',
     CLEAR_ALERTS = 'clearAlerts',
-    ADD_PLACED_ORDER = 'addPlacedOrder'
+    ADD_PLACED_ORDER = 'addPlacedOrder',
+    CLEAR_USER = 'clearUser'
 }
 

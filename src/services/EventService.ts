@@ -2,7 +2,8 @@ import store from "../store/store";
 import {Actions} from "../actions/actions";
 import {AbstractService} from "./AbstractService";
 import {EventRsRqMapper} from "../mapper/EventRsRqMapper";
-import {EventRqRs} from "../model/request/EventRqRs";
+import {EventRs} from "../model/request/EventRs";
+import {EventRq} from "../model/request/EventRq";
 
 const ALL_EVENTS_ENDPOINT = '/events/all';
 const CREATE_EVENT_ENDPOINT = '/events/new';
@@ -11,7 +12,7 @@ const mapper = new EventRsRqMapper();
 
 export class EventService extends AbstractService {
     public static getAllAvailableEvents(): void {
-        this.get<any, EventRqRs[]>(ALL_EVENTS_ENDPOINT)
+        this.get<any, EventRs[]>(ALL_EVENTS_ENDPOINT)
             .then(response =>
                 store.dispatch({
                     type: Actions.ADD_EVENTS,
@@ -24,6 +25,6 @@ export class EventService extends AbstractService {
     }
 
     public static createNewEvent(event: any) {
-        this.post(CREATE_EVENT_ENDPOINT, mapper.mapRq(event))
+        return this.post<EventRq, EventRs>(CREATE_EVENT_ENDPOINT, mapper.mapRq(event))
     }
 }

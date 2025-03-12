@@ -66,3 +66,7 @@
         padding: var(--element-spacing);
     }
 }
+
+.Mui-error {
+    text-transform: capitalize;
+}

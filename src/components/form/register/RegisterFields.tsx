@@ -14,7 +14,8 @@ export const RegisterFields = (props: RegisterFieldsProps) => {
     const showPasswordFields = () => {
         return <>
             <InputField fieldName={FormFields.PASSWORD} type={"password"} maxLength={99}/>
-            <InputField fieldName={FormFields.REPEAT_PASSWORD} type={"password"} maxLength={99}
+            <InputField fieldName={FormFields.REPEAT_PASSWORD} fieldLabel={'repeat password'} type={"password"}
+                        maxLength={99}
                         validate={validateRepeatPassword}/>
         </>
     }
@@ -22,7 +23,7 @@ export const RegisterFields = (props: RegisterFieldsProps) => {
     return <>
         <InputField fieldName={FormFields.EMAIL} maxLength={99} validate={validateEmail}/>
         {withPassword && showPasswordFields()}
-        <InputField fieldName={FormFields.FIRST_NAME} maxLength={99}/>
-        <InputField fieldName={FormFields.LAST_NAME} maxLength={99}/>
+        <InputField fieldName={FormFields.FIRST_NAME} fieldLabel={'first name'} maxLength={99}/>
+        <InputField fieldName={FormFields.LAST_NAME} fieldLabel={'last name'} maxLength={99}/>
     </>
 }

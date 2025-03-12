@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {StoreState} from "../../model/storing/StoreState";
 import {NumberOfTicketsInput} from "../form/common/NumberOfTicketsInput";
 import {Actions} from "../../actions/actions";
+import {AuthService} from "../../services/AuthService";
+import store from "../../store/store";
 
 const localCartService = new LocalCartService();
 
@@ -20,9 +22,9 @@ export const CartPopover = () => {
     const dispatch = useDispatch();
 
     const renderItems = () => {
-        return items.map(item => {
+        return items.map((item, index) => {
             const itemEvent = events.find(event => event.id === item.id);
-            return !!itemEvent && <div>
+            return !!itemEvent && <div key={index}>
                 <Typography sx={{p: 2}}>{item.name}</Typography>
                 <NumberOfTicketsInput
                     event={itemEvent}
@@ -37,7 +39,11 @@ export const CartPopover = () => {
     }
 
     const finalizeOrder = () => {
-        setShowLoginAlert(true)
+        if (AuthService.isGuest(store.getState().role)) {
+            setShowLoginAlert(true)
+        } else {
+            redirectToFinalizationView()
+        }
     }
 
     const closeCart = () => {

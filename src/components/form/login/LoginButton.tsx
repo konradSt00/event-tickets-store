@@ -7,10 +7,11 @@ interface LoginButtonProps extends ButtonOwnProps {
 }
 
 export const LoginButton = (props: LoginButtonProps) => {
+    const dialogProps = {dialogTitle: 'Login', onSuccessLogin: props.onSuccessLogin};
     return <DialogButton
         {...props}
         buttonLabel={'Login'}
         dialog={LoginDialog}
-        dialogProps={{dialogTitle: 'Login', onSuccessLogin: props.onSuccessLogin}}
+        dialogProps={{...dialogProps}}
     />
 }

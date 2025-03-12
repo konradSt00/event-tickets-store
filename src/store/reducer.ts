@@ -1,16 +1,22 @@
 import {Actions} from "../actions/actions";
 import {StoreState} from "../model/storing/StoreState";
 import {Action} from "@reduxjs/toolkit";
+import {ProfileState} from "../model/storing/ProfileState";
 
 export type View = 'EVENTS_LIST' | 'FINALIZATION_VIEW' | 'PROFILE_VIEW' | 'SUMMARY_VIEW';
+
+const initialProfileState = (): ProfileState => {
+    return {
+        historicalOrders: [],
+        userData: undefined
+    }
+}
 
 const initialState: StoreState = {
     events: [],
     categories: [],
     currentView: 'EVENTS_LIST',
-    profileState: {
-        historicalOrders: []
-    },
+    profileState: initialProfileState(),
     cartState: {
         cartItems: [],
         cartOpened: false
@@ -104,6 +110,13 @@ export const reducer = (state = initialState, action: StoreActionType): StoreSta
             return {
                 ...state,
                 placedOrder: action.payload
+            }
+        case Actions.CLEAR_USER:
+            return {
+                ...state,
+                role: "ROLE_GUEST",
+                profileState: initialProfileState(),
+                currentView: "EVENTS_LIST"
             }
         default:
             return state

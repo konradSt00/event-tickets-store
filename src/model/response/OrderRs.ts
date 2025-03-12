@@ -1,4 +1,5 @@
 export interface OrderRs {
+    orderId: string;
     date: string;
     email: string;
     eventOrderRsList: EventOrderRs[]

@@ -1,26 +1,28 @@
 import dayjs from "dayjs";
 import {DATE_FORMAT} from "../constants";
 import {Event} from "../model/Event"
-import {EventRqRs} from "../model/request/EventRqRs";
+import {EventRq} from "../model/request/EventRq";
 import {EventFormValues, FormFields} from "../model/form/event/EventFormFields";
+import {EventRs} from "../model/request/EventRs";
 
 export class EventRsRqMapper {
-    public mapRs(event: EventRqRs): Event {
+    public mapRs(event: EventRs): Event {
         return {
             ...event,
+            category: {name: event.categoryName},
             date: this.mapStringToDate(event.date),
             availableTo: this.mapStringToDate(event.availableTo),
             availableFrom: this.mapStringToDate(event.availableFrom),
         }
     }
 
-    public mapRq(event: EventFormValues): EventRqRs {
+    public mapRq(event: EventFormValues): EventRq {
         return {
             ...event,
             imageLink: event[FormFields.IMAGE],
             id: -1,
             numberOfTicketsAvailable: event[FormFields.TICKETS_NUMBER],
-            category: {id: event[FormFields.CATEGORY]},
+            categoryId: event[FormFields.CATEGORY],
             date: event[FormFields.EVENT_DATE],
             availableTo: event[FormFields.AVAILABLE_TO],
             availableFrom: event[FormFields.AVAILABLE_FROM]

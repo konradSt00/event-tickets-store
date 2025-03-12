@@ -7,6 +7,7 @@ import store from "../store/store";
 import {addRole} from "../actions/addRole";
 import {RegisterRq} from "../model/request/RegisterRq";
 import {DialogService} from "./DialogService";
+import {Actions} from "../actions/actions";
 
 const SIGN_IN_ENDPOINT = '/auth/signin'
 const SIGN_UP_ENDPOINT = '/auth/signup'
@@ -27,11 +28,25 @@ export class AuthService extends AbstractService {
 
     public static async login(data: LoginRq) {
         return await this.post<LoginRq, string>(SIGN_IN_ENDPOINT, data)
-            .then(response => this.handleToken(response.data))
+            .then(response => {
+                if (response.data.includes(BEARER)) {
+                    this.handleToken(response.data);
+                    DialogService.showAlertDialog({type: "success", message: "Logged in successfully"})
+                }
+            })
     }
 
     public static async register(data: RegisterRq) {
-        return await this.post<RegisterRq, string>(SIGN_UP_ENDPOINT, data)
+        return this.post<RegisterRq, { message: string }>(SIGN_UP_ENDPOINT, data)
+            .then((response) => {
+                if (response?.data?.message && response?.data?.message?.includes('success')) {
+                    DialogService.showAlertDialog({
+                        type: "success",
+                        message: "Registered successfully! You can login now."
+                    })
+                }
+            })
+
     }
 
     public static init() {
@@ -43,7 +58,8 @@ export class AuthService extends AbstractService {
     public static logout() {
         localStorage.removeItem(BEARER);
         AuthService.init();
-        DialogService.showAlertDialog({type: "info", message: 'You have been logged out'})
+        DialogService.showAlertDialog({type: "info", message: 'You have been logged out'});
+        store.dispatch({type: Actions.CLEAR_USER})
     }
 
     public static getUserId() {

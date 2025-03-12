@@ -10,15 +10,25 @@ interface InputFieldProps<FormFields> {
     multiline?: boolean;
     required?: boolean;
     validate?: Validate<string, FieldValues>
+    fieldLabel?: string;
 }
 
 export const InputField = <FormFields, >(props: InputFieldProps<FormFields>) => {
     const theme = useTheme();
-    const {formState: {errors}, fieldName, maxLength = 99999, register, multiline = false, required = true, type = "text"} = {...useFormContext(), ...props}
+    const {
+        formState: {errors},
+        fieldName,
+        maxLength = 99999,
+        register,
+        multiline = false,
+        required = true,
+        type = "text",
+        fieldLabel
+    } = {...useFormContext(), ...props}
     const error = errors[fieldName]
     return <TextField
-        label={`Please provide ${fieldName}`}
-        helperText={error?.message ? `${error?.message}` : !!error && `Event ${fieldName} is required`}
+        label={`Please provide ${fieldLabel || fieldName}`}
+        helperText={error?.message ? `${error?.message}` : !!error && `${fieldLabel || fieldName} is required`}
         sx={{my: theme.spacing(1)}}
         color={'secondary'}
         multiline={multiline}

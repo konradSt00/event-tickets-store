@@ -12,7 +12,7 @@ export const AlertDialog = () => {
                    onClose={DialogService.clearAlerts}>
         <DialogTitle>Alert</DialogTitle>
         {alerts.map((alert, index) => {
-            return <DialogContent>
+            return <DialogContent key={index}>
                 <Alert severity={alert.type}>{alert.message}</Alert>
             </DialogContent>
         })}

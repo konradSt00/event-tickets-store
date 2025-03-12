@@ -10,9 +10,12 @@ import {Order} from "../model/order/Order";
 export class OrderService extends AbstractService {
     private static orderMapper = new OrderMapper();
 
-    public static createOrder(request: OrderRq): Promise<Order> {
+    public static createOrder(request: OrderRq): Promise<Order | null> {
         return this.post<OrderRq, OrderRs>('/orders/new', request)
-            .then((response) => this.orderMapper.mapRs(response.data));
+            .then((response) => {
+                if (!response?.data?.orderId) return null;
+                return this.orderMapper.mapRs(response.data);
+            });
     }
 
     public static getOrders() {
