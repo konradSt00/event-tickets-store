@@ -18,11 +18,12 @@ export const EventFields = () => {
         <InputField fieldName={FormFields.TIME} type={'time'}/>
         <InputField fieldName={FormFields.TICKET_PRICE} fieldLabel={'ticket price'} type={"number"}/>
         <EventDateField fieldName={FormFields.EVENT_DATE} validate={validateEventDate}
-                        minDate={FormFields.AVAILABLE_TO}/>
+                        minDate={FormFields.AVAILABLE_TO} label={'Event date'}/>
         <InputField fieldName={FormFields.TICKETS_NUMBER} fieldLabel={'number of tickets'} type={"number"}/>
-        <EventDateField fieldName={FormFields.AVAILABLE_FROM} validate={validateAvailableFromDate}/>
+        <EventDateField fieldName={FormFields.AVAILABLE_FROM} validate={validateAvailableFromDate}
+                        label={'Tickets available from'}/>
         <EventDateField fieldName={FormFields.AVAILABLE_TO} validate={validateAvailableToDate}
-                        minDate={FormFields.AVAILABLE_FROM}/>
+                        minDate={FormFields.AVAILABLE_FROM} label={'Tickets available to'}/>
         <CategorySelectField fieldName={FormFields.CATEGORY}/>
     </>
 }

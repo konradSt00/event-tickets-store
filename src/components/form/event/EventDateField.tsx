@@ -12,6 +12,7 @@ interface EventDateFieldProps {
     fieldName: FormFields
     validate?: Validate<string, FieldValues>
     minDate?: dayjs.Dayjs | FormFields
+    label?: string
 }
 
 export const EventDateField = (props: EventDateFieldProps) => {
@@ -29,6 +30,7 @@ export const EventDateField = (props: EventDateFieldProps) => {
         <Controller rules={{required: true, validate: props.validate}} control={control} render={(field => {
             const fieldError = field.fieldState.error;
             return <DatePicker
+                label={props.label}
                 minDate={getMinDate()}
                 format={DATE_FORMAT}
                 value={dayjs(field.field.value, [DATE_FORMAT])}

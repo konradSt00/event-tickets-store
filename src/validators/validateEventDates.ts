@@ -12,16 +12,16 @@ export const validateAvailableFromDate: Validate<string, FieldValues> = (availab
     const availableToDate = dayjs(formValues[FormFields.AVAILABLE_TO], DATE_FORMAT);
     const availableFromDate = dayjs(availableFrom, DATE_FORMAT);
     if (availableFromDate.isAfter(availableToDate)) return 'Sale beginning cannot be after its end';
-    if (!isFutureDate(availableFromDate)) return 'Sale beginning cannot be a past date';
-    return undefined;
+    if (!isFutureDate(availableFromDate)) return undefined;
+    else return 'Sale beginning cannot be a past date';
 }
 
 export const validateAvailableToDate: Validate<string, FieldValues> = (availableTo: string, formValues: FieldValues): ValidateResult => {
     const eventDate = dayjs(formValues[FormFields.EVENT_DATE], DATE_FORMAT);
     const availableToDate = dayjs(availableTo, DATE_FORMAT);
     if (!availableToDate.isBefore(eventDate)) return 'Sale end cannot be after event date';
-    if (!isFutureDate(availableToDate)) return 'Sale end cannot be a past date';
-    return undefined;
+    if (isFutureDate(availableToDate)) return undefined;
+    else return 'Sale end cannot be a past date';
 }
 
 const isFutureDate = (date: dayjs.Dayjs): boolean => {

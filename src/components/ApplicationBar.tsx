@@ -49,7 +49,7 @@ export const ApplicationBar = () => {
         {renderGuestButtons()}
         {!AuthService.isGuest(role) && <>
                 <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>
-                <Button onClick={redirectToProfile}><PersonIcon/></Button>
+            <Button aria-label={'profile'} onClick={redirectToProfile}><PersonIcon/></Button>
             </>
         }
         <CartPopover/>

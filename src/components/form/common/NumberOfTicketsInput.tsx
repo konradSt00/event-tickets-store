@@ -64,7 +64,7 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
     }
 
     const renderAddToCartBtn = () => {
-        return <Button variant={'text'} onClick={handleAddToCartBtnClick}>
+        return <Button aria-label={'add to cart'} variant={'text'} onClick={handleAddToCartBtnClick}>
             <AddShoppingCartIcon/>
         </Button>
     }
@@ -76,6 +76,7 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
             onChange={handleNumberOfTicketsChange}
             type={'number'}
             inputProps={{
+                "aria-label": 'number of tickets',
                 min: ZERO_NUMBER_OF_TICKETS,
                 max: Math.min(event.numberOfTicketsAvailable, MAX_TICKETS_PER_ORDER)
             }}
