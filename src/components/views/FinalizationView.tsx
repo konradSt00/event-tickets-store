@@ -6,11 +6,11 @@ import {StoreState} from "../../model/storing/StoreState";
 import {DEFAULT_CURRENCY} from "../../constants";
 import {OrderService} from "../../services/OrderService";
 import {buildOrderRq} from "../../util/orderUtil";
-import {useEffect} from "react";
-import {EventService} from "../../services/EventService";
+import React, {useEffect} from "react";
 import {CartItem} from "../../model/cart/CartItem";
 import {DialogService} from "../../services/DialogService";
 import {redirectToSummaryView} from "../../actions/redirectToSummaryView";
+import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 
 const localCartService =  new LocalCartService();
 
@@ -21,10 +21,10 @@ export const FinalizationView = () => {
 
 
     useEffect(() => {
-        const intervalId = EventService.startAutoRefreshOffers()
-        return () => {
-            clearInterval(intervalId);
-        }
+        // const intervalId = EventService.startAutoRefreshOffers()
+        // return () => {
+        //     clearInterval(intervalId);
+        // }
     }, []);
 
     useEffect(() => {
@@ -74,15 +74,27 @@ export const FinalizationView = () => {
         <h1>Finish your order</h1>
         <div className={'order-summary-container'}>
             <h3>Order summary</h3>
-            {cartItems.map((item, index) => {
+            {[...cartItems].sort((a, b) => a.id - b.id).map((item, index) => {
                 const event = allEvents.find(event => event.id === item.id);
-                return !!event && <span key={index}>
-                    {`${item.name}   x`}
-                    <NumberOfTicketsInput event={event} synchronizeInputWithCart={true}/>
-                </span>
+                return !!event && <div className={'order-summary-row'} key={index}>
+                    <Card sx={{maxWidth: 345}}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="80"
+                                image={event.imageLink}
+                                alt="green iguana"
+                            />
+                            <CardContent>
+                                <div>{`${item.name}`}</div>
+                                <NumberOfTicketsInput event={event} synchronizeInputWithCart={true}/>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </div>
             })}
         </div>
-        <span>Amount to pay: {getAmountToPay()} {DEFAULT_CURRENCY}</span>
+        <div className={'amount-to-pay'}>Amount to pay: {getAmountToPay()} {DEFAULT_CURRENCY}</div>
         <div>
             <h3>Please provide your data</h3>
             <FinalizationForm onSubmitAction={handleOrderFinalization}/>

@@ -8,6 +8,7 @@ interface DialogButtonProps<DialogProps> extends ButtonOwnProps {
     dialog: React.FunctionComponent<DialogProps>;
     dialogProps: DialogProps;
     disabled?: boolean;
+    className?: string
 }
 
 export const DialogButton = <PropsType extends DialogProps, >(props: DialogButtonProps<PropsType>) => {
@@ -29,11 +30,12 @@ export const DialogButton = <PropsType extends DialogProps, >(props: DialogButto
 
     return <>
         <Button
+            className={props.className}
             disabled={disabled}
-            color={'secondary'}
+            color={'primary'}
             onClick={handleDialogOpen}
-            size={'medium'}
-            variant={'contained'}
+            size={'large'}
+            variant={'text'}
             {...buttonProps}
         >
             {buttonLabel}

@@ -3,7 +3,7 @@ import {AddEventDialog} from "./form/event/AddEventDialog";
 import {AddCategoryDialog} from "./form/category/AddCategoryDialog";
 import {CartPopover} from "./cart/CartPopover";
 import {AuthService} from "../services/AuthService";
-import {Button} from "@mui/material";
+import {Button, ButtonGroup} from "@mui/material";
 import {LoginButton} from "./form/login/LoginButton";
 import {RegisterButton} from "./form/register/RegisterButton";
 import PersonIcon from '@mui/icons-material/Person';
@@ -36,22 +36,24 @@ export const ApplicationBar = () => {
 
     const renderGuestButtons = () => {
         return AuthService.isGuest(role)
-            ? <>
+            ? <ButtonGroup variant="text" sx={{marginX: "30px"}}>
                 <LoginButton/>
                 <RegisterButton/>
-            </>
+            </ButtonGroup>
             : null;
     }
 
     return <div className={'app-bar-container'}>
         <HomeButton/>
-        {renderAdminToolsIfAuthorized()}
-        {renderGuestButtons()}
-        {!AuthService.isGuest(role) && <>
+        <div className={'app-bar-content'}>
+            {renderAdminToolsIfAuthorized()}
+            {renderGuestButtons()}
+            {!AuthService.isGuest(role) && <>
                 <Button onClick={AuthService.logout} variant={"contained"}>Logout</Button>
-            <Button aria-label={'profile'} onClick={redirectToProfile}><PersonIcon/></Button>
+                <Button aria-label={'profile'} onClick={redirectToProfile}><PersonIcon/></Button>
             </>
-        }
-        <CartPopover/>
+            }
+            <CartPopover/>
+        </div>
     </div>
 }

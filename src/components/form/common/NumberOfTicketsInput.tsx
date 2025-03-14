@@ -1,11 +1,16 @@
-import React, {ChangeEvent, MouseEvent, useEffect} from "react";
-import {Button, TextField, Typography} from "@mui/material";
+import React, {MouseEvent, useEffect} from "react";
+import {Button, Typography} from "@mui/material";
 import {DEFAULT_CURRENCY, MAX_TICKETS_PER_ORDER} from "../../../constants";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {LocalCartService} from "../../../services/LocalCartService";
 import {Event} from "../../../model/Event";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
+import {Unstable_NumberInput as BaseNumberInput,} from '@mui/base/Unstable_NumberInput';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
+import {StyledInput, StyledInputRoot} from "./styled/StyledInput";
+import {StyledButton} from "./styled/StyledButton";
 
 const DEFAULT_NUMBER_OF_TICKETS = 1;
 const ZERO_NUMBER_OF_TICKETS = 0;
@@ -14,10 +19,11 @@ const localCartService = new LocalCartService();
 export interface NumberOfTicketsInputProps {
     event: Event;
     synchronizeInputWithCart?: boolean
+    withTotal?: boolean;
 }
 
 export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
-    const {event, synchronizeInputWithCart = false} = {...props}
+    const {event, synchronizeInputWithCart = false, withTotal = true} = {...props}
 
     const cartItemQuantity = useSelector((state: StoreState) => {
         if (synchronizeInputWithCart) {
@@ -42,9 +48,8 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
 
     const [numberOfTickets, setNumberOfTickets] = React.useState(getInitialNumberOfTickets());
 
-    const handleNumberOfTicketsChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let newValue = parseInt(e.target.value);
-        if (isNaN(newValue)) return;
+    const handleNumberOfTicketsChange = (newValue: number | null) => {
+        if (newValue == null || isNaN(newValue)) return;
         newValue = newValue > event.numberOfTicketsAvailable ? event.numberOfTicketsAvailable : newValue;
         if (!synchronizeInputWithCart) setNumberOfTickets(newValue)
         else {
@@ -70,21 +75,37 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
     }
 
     return <>
-        <TextField
-            onClick={e => e.stopPropagation()}
-            value={numberOfTickets}
-            onChange={handleNumberOfTicketsChange}
-            type={'number'}
-            inputProps={{
-                "aria-label": 'number of tickets',
-                min: ZERO_NUMBER_OF_TICKETS,
-                max: Math.min(event.numberOfTicketsAvailable, MAX_TICKETS_PER_ORDER)
-            }}
-        />
-        {!synchronizeInputWithCart && renderAddToCartBtn()}
-        <Typography>
+        <div className={'d-inline-block'}>
+            <BaseNumberInput
+                onClick={(event) => event.stopPropagation()}
+                min={ZERO_NUMBER_OF_TICKETS}
+                value={numberOfTickets}
+                max={Math.min(event.numberOfTicketsAvailable, MAX_TICKETS_PER_ORDER)}
+                onChange={(event, newValue) => handleNumberOfTicketsChange(newValue)}
+                slots={{
+                    root: StyledInputRoot,
+                    input: StyledInput,
+                    incrementButton: StyledButton,
+                    decrementButton: StyledButton,
+                }}
+                slotProps={{
+                    incrementButton: {
+                        children: <AddIcon fontSize="small"/>,
+                        className: 'increment',
+                    },
+                    decrementButton: {
+                        children: <RemoveIcon fontSize="small"/>,
+                    },
+                }}
+                {...props}
+            />
+        </div>
+        <div className={'d-inline-block'}>
+            {!synchronizeInputWithCart && renderAddToCartBtn()}
+        </div>
+        {withTotal && <Typography>
             Total: {(numberOfTickets * event.ticketPrice).toFixed(2)} {DEFAULT_CURRENCY}
-        </Typography>
+        </Typography>}
     </>
 
 }

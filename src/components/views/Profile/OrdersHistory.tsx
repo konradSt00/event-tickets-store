@@ -60,6 +60,7 @@ export const OrdersHistory = () => {
     return <div className={'orders-history-container'}>
         <h3>Your orders</h3>
         <DataGrid
+            hideFooter={true}
             columns={getColumns()}
             rows={getRows()}
         />

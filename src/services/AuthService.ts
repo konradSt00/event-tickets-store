@@ -29,7 +29,7 @@ export class AuthService extends AbstractService {
     public static async login(data: LoginRq) {
         return await this.post<LoginRq, string>(SIGN_IN_ENDPOINT, data)
             .then(response => {
-                if (response.data.includes(BEARER)) {
+                if (response.data?.includes(BEARER)) {
                     this.handleToken(response.data);
                     DialogService.showAlertDialog({type: "success", message: "Logged in successfully"})
                 }

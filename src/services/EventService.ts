@@ -7,7 +7,7 @@ import {EventRq} from "../model/request/EventRq";
 
 const ALL_EVENTS_ENDPOINT = '/events/all';
 const CREATE_EVENT_ENDPOINT = '/events/new';
-const AUTO_REFRESH_INTERVAL = 30000;
+const AUTO_REFRESH_INTERVAL = 3000000000;
 const mapper = new EventRsRqMapper();
 
 export class EventService extends AbstractService {

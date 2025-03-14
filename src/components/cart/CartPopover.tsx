@@ -1,4 +1,4 @@
-import {Alert, Badge, Button, Popover, Typography} from "@mui/material";
+import {Alert, Badge, Button, ButtonGroup, Popover, Typography} from "@mui/material";
 import {useState} from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {LocalCartService} from "../../services/LocalCartService";
@@ -24,8 +24,8 @@ export const CartPopover = () => {
     const renderItems = () => {
         return items.map((item, index) => {
             const itemEvent = events.find(event => event.id === item.id);
-            return !!itemEvent && <div key={index}>
-                <Typography sx={{p: 2}}>{item.name}</Typography>
+            return !!itemEvent && <div className={'cart-row'} key={index}>
+                <Typography sx={{p: 1}}>{item.name}</Typography>
                 <NumberOfTicketsInput
                     event={itemEvent}
                     synchronizeInputWithCart={true}
@@ -62,15 +62,17 @@ export const CartPopover = () => {
     }
 
     const id = isOpened ? 'simple-popover' : undefined;
-    return (<>
+    return (<span>
             <Button aria-describedby={id} variant="text"
                     onClick={e => {
                         setAnchorEl(e.currentTarget);
                         dispatch({type: Actions.OPEN_CART})
                     }}
             >
-                <Badge color={'secondary'} variant={'standard'} badgeContent={getNumberOfItems()}>
-                    <ShoppingCartIcon/>
+                <Badge className={'cart-button-badge'} color={'secondary'} variant={'standard'}
+                       badgeContent={getNumberOfItems()}>
+                    <Typography>Cart</Typography>
+                    <ShoppingCartIcon fontSize={"large"}/>
                 </Badge>
             </Button>
             <Popover
@@ -87,13 +89,17 @@ export const CartPopover = () => {
                     horizontal: 'right',
                 }}
             >
-                {items?.length > 0 ? renderItems() : renderNoItemsInfo()}
+                <div className={'cart-container'}>
+                    {items?.length > 0 ? renderItems() : renderNoItemsInfo()}
+                </div>
                 {items?.length > 0 && <>
-                    <Button onClick={clearAndCloseCart} variant={'outlined'}>CLEAR CART</Button>
-                    <Button onClick={finalizeOrder} variant={'contained'}>BUY TICKETS</Button>
+                    <ButtonGroup>
+                        <Button onClick={clearAndCloseCart} variant={'outlined'}>CLEAR CART</Button>
+                        <Button onClick={finalizeOrder} variant={'contained'}>BUY TICKETS</Button>
+                    </ButtonGroup>
                     <LoginAlert isDialogOpened={showLoginAlert} setDialogOpened={setShowLoginAlert} onClose={redirectToFinalizationView}/>
                 </>}
             </Popover>
-        </>
+        </span>
     );
 }

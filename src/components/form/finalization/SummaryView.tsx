@@ -1,7 +1,8 @@
-import {Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import {DEFAULT_CURRENCY} from "../../../constants";
 import {useSelector} from "react-redux";
 import {StoreState} from "../../../model/storing/StoreState";
+import {redirectToListView} from "../../../actions/redirectToListView";
 
 export const SummaryView = () => {
     const orderEvents = useSelector((state: StoreState) => state.placedOrder?.event || [])
@@ -14,16 +15,17 @@ export const SummaryView = () => {
         return `${total} ${DEFAULT_CURRENCY}`
     }
 
-    return <div>
+    return <div className={'order-result-summary'}>
         <h2>Order placed successfully!</h2>
         <h4>Your order summary</h4>
         {orderEvents.map(eventOrder => {
-            return <Typography>{eventOrder.name} {eventOrder.price.toFixed(2)}x{eventOrder.quantity} {(eventOrder.quantity * eventOrder.price).toFixed(2)}</Typography>
+            return <Typography>{`${eventOrder.name} ${eventOrder.price.toFixed(2)} ${DEFAULT_CURRENCY}  x  ${eventOrder.quantity}    ( total: ${(eventOrder.quantity * eventOrder.price).toFixed(2)} ${DEFAULT_CURRENCY})`}</Typography>
         })}
         <Typography>
             <>
                 Total price: {getTotalPrice()}
             </>
         </Typography>
+        <Button onClick={redirectToListView}>Return to all Events</Button>
     </div>
 }

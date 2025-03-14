@@ -13,7 +13,7 @@ export const EventControls = (props: RowControlsProps) => {
     const event = props.event;
 
     return isEventTicketAvailable(event)
-        ? <NumberOfTicketsInput event={event}/>
+        ? <NumberOfTicketsInput event={event} withTotal={false}/>
         : <OfferUnavailabilityAlert {...event}/>
 
 }

@@ -30,14 +30,16 @@ export const ListView = () => {
 
     const getColumns = (): GridColDef<(DataGridRowType[])[number]>[] => [
         {field: 'id', headerName: '', flex: 1, disableColumnMenu: true, disableReorder: true, hideSortIcons: true},
-        {field: 'eventName', headerName: 'Event name', flex: 5},
-        {field: 'category', headerName: 'Event category', flex: 3},
+        {field: 'eventName', headerName: 'Event name', flex: 4},
+        {field: 'category', headerName: 'Event category', flex: 2},
         {field: 'eventDate', headerName: 'Event date', flex: 2, type: "date"},
         {field: 'price', headerName: 'Ticket price', flex: 2},
         {
             field: 'controls',
             headerName: '',
-            flex: 3,
+            flex: 2,
+            align: 'center',
+            minWidth: 225,
             disableColumnMenu: true,
             disableReorder: true,
             hideSortIcons: true,
@@ -60,8 +62,8 @@ export const ListView = () => {
     }
 
     return <div className={'list-item-container'}>
-        <h3>Events</h3>
         <DataGrid
+            hideFooter={true}
             columns={getColumns() as any}
             rows={getRows()}
             rowSelection={false}

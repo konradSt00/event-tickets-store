@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #173e5e;
-    --secondary-color: #29104A;
+    --primary-color: #c2c2c2;
+    --secondary-color: #ffffff;
+    --font-color: #1976d2;
     --font-size-big: 21px;
     --element-spacing: 16px;
-    --font-color: white;
     --border-radius: 8px;
-    --app-bar-height: 50px;
+    --app-bar-height: 80px;
 }
 
 .content-wrapper {
@@ -13,8 +13,10 @@
 }
 
 .list-item-container {
+    width: 80%;
+    margin: auto;
+    padding: calc(var(--element-spacing) * 3);
     font-size: var(--font-size-big);
-    margin: var(--element-spacing);
     font-weight: bold;
     border-radius: var(--border-radius);
     color: var(--font-color);
@@ -28,7 +30,7 @@
 }
 
 .add-event-btn {
-    background-color: wheat;
+    background-color: var(--primary-color);
 }
 
 .app-bar-container {
@@ -37,6 +39,12 @@
     background-color: var(--secondary-color);
     position: fixed;
     width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+
 }
 
 .finalization-view-container {
@@ -54,6 +62,10 @@
 .orders-history-container, .user-data-container {
     width: 60%;
     min-width: 700px;
+
+    .MuiTypography-root {
+        font-size: 20px;
+    }
     margin: calc(var(--element-spacing) * 2) auto auto;
 }
 
@@ -70,3 +82,82 @@
 .Mui-error {
     text-transform: capitalize;
 }
+
+.MuiDataGrid-cell {
+    background-color: var(--secondary-color);
+    font-size: 25px;
+}
+
+.number-of-tickets-input {
+    .MuiInputBase-input {
+        width: 50px;
+        height: 100%;
+        border: none;
+    }
+}
+
+.MuiButtonBase-root.home-btn {
+    font-size: 30px;
+}
+
+.app-bar-content {
+    text-align: right;
+    width: 70%;
+}
+
+.cart-button-badge {
+    display: flex;
+    align-items: center;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+    font-size: 20px;
+    font-weight: 700 !important;
+    color: var(--font-color);
+}
+
+.base-NumberInput-root {
+    width: fit-content;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.cart-row {
+    padding: var(--element-spacing);
+    text-align: center;
+}
+
+.cart-container {
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.order-summary-row {
+    display: inline-block;
+    padding: var(--element-spacing);
+    text-align: center;
+
+    div {
+        padding: 5px;
+    }
+
+}
+
+.order-result-summary {
+    margin: auto;
+    text-align: center;
+
+    .MuiTypography-root {
+        font-size: 20px;
+        margin: var(--element-spacing);
+    }
+}
+
+.amount-to-pay {
+    font-weight: bold;
+    float: right;
+    font-size: 25px;
+}
+
