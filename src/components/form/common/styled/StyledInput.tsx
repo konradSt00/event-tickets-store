@@ -1,8 +1,15 @@
 import {styled} from "@mui/system";
 import {blue, grey} from "@mui/material/colors";
 
-export const StyledInput = styled('input')(
-    ({theme}) => `
+export const StyledInput = (props: any) => {
+    return <StyledInputComponent
+        aria-label={'number of tickets'}
+        {...props}
+    />
+}
+
+const StyledInputComponent = styled('input')(
+    ({theme, type: text}) => `
   font-size: 0.875rem;
   font-family: inherit;
   font-weight: 400;

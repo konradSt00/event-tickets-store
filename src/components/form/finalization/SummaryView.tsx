@@ -26,6 +26,6 @@ export const SummaryView = () => {
                 Total price: {getTotalPrice()}
             </>
         </Typography>
-        <Button onClick={redirectToListView}>Return to all Events</Button>
+        <Button color={'secondary'} onClick={redirectToListView}>Return to all Events</Button>
     </div>
 }

@@ -10,7 +10,7 @@ import React, {useEffect} from "react";
 import {CartItem} from "../../model/cart/CartItem";
 import {DialogService} from "../../services/DialogService";
 import {redirectToSummaryView} from "../../actions/redirectToSummaryView";
-import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
+import {Card, CardContent, CardMedia} from "@mui/material";
 
 const localCartService =  new LocalCartService();
 
@@ -78,18 +78,16 @@ export const FinalizationView = () => {
                 const event = allEvents.find(event => event.id === item.id);
                 return !!event && <div className={'order-summary-row'} key={index}>
                     <Card sx={{maxWidth: 345}}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="80"
-                                image={event.imageLink}
-                                alt="green iguana"
-                            />
-                            <CardContent>
-                                <div>{`${item.name}`}</div>
-                                <NumberOfTicketsInput event={event} synchronizeInputWithCart={true}/>
-                            </CardContent>
-                        </CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="80"
+                            image={event.imageLink}
+                            alt="green iguana"
+                        />
+                        <CardContent>
+                            <div>{`${item.name}`}</div>
+                            <NumberOfTicketsInput event={event} synchronizeInputWithCart={true}/>
+                        </CardContent>
                     </Card>
                 </div>
             })}

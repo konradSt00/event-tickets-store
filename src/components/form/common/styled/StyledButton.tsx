@@ -1,7 +1,15 @@
 import {styled} from "@mui/system";
 import {blue, grey} from "@mui/material/colors";
 
-export const StyledButton = styled('button')(
+export const StyledButton = (props: any) => {
+    return <StyledButtonComponent
+        aria-hidden={true}
+        aria-label={'modify number of tickets'}
+        {...props}
+    />
+}
+
+const StyledButtonComponent = styled('button')(
     ({theme}) => `
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;

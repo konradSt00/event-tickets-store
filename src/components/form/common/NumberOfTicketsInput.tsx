@@ -77,6 +77,7 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
     return <>
         <div className={'d-inline-block'}>
             <BaseNumberInput
+                aria-label={'number of tickets'}
                 onClick={(event) => event.stopPropagation()}
                 min={ZERO_NUMBER_OF_TICKETS}
                 value={numberOfTickets}
@@ -95,6 +96,7 @@ export const NumberOfTicketsInput = (props: NumberOfTicketsInputProps) => {
                     },
                     decrementButton: {
                         children: <RemoveIcon fontSize="small"/>,
+                        className: 'decrement'
                     },
                 }}
                 {...props}
