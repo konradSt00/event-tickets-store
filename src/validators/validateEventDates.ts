@@ -12,7 +12,7 @@ export const validateAvailableFromDate: Validate<string, FieldValues> = (availab
     const availableToDate = dayjs(formValues[FormFields.AVAILABLE_TO], DATE_FORMAT);
     const availableFromDate = dayjs(availableFrom, DATE_FORMAT);
     if (availableFromDate.isAfter(availableToDate)) return 'Sale beginning cannot be after its end';
-    if (!isFutureDate(availableFromDate)) return undefined;
+    if (isFutureDate(availableFromDate)) return undefined;
     else return 'Sale beginning cannot be a past date';
 }
 

@@ -37,6 +37,9 @@ export const EventDetailsDialog = (props: EventDetailsProps) => {
                             <Typography variant="body1">
                                 {`${props.detailedEvent.date.toDateString()}  ${props.detailedEvent.time}`}
                             </Typography>
+                            <Typography variant="body1">
+                                {`${props.detailedEvent.location}`}
+                            </Typography>
                             <Typography variant="body2" sx={{color: 'text.secondary', marginTop: '18px'}}>
                                 {props.detailedEvent.description}
                             </Typography>

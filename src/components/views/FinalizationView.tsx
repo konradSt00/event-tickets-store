@@ -11,6 +11,7 @@ import {CartItem} from "../../model/cart/CartItem";
 import {DialogService} from "../../services/DialogService";
 import {redirectToSummaryView} from "../../actions/redirectToSummaryView";
 import {Card, CardContent, CardMedia} from "@mui/material";
+import {EventService} from "../../services/EventService";
 
 const localCartService =  new LocalCartService();
 
@@ -21,10 +22,10 @@ export const FinalizationView = () => {
 
 
     useEffect(() => {
-        // const intervalId = EventService.startAutoRefreshOffers()
-        // return () => {
-        //     clearInterval(intervalId);
-        // }
+        const intervalId = EventService.startAutoRefreshOffers()
+        return () => {
+            clearInterval(intervalId);
+        }
     }, []);
 
     useEffect(() => {
